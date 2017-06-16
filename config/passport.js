@@ -49,6 +49,7 @@ module.exports = function(passport){
                 newUser.local.password = newUser.generateHash(password);
                 newUser.local.name = req.body.name;
                 newUser.local.roll = req.body.roll;
+                newUser.local.level = 0;
                 // save the user
                 newUser.save(function(err) {
                     if (err)
@@ -73,7 +74,6 @@ module.exports = function(passport){
     			return done(err);
     		if(!user || !user.validPassword(password))
     			return done(null, false);
- 			
     		return done(null, user);
     	});
     }))	;
