@@ -86,6 +86,11 @@ module.exports = function(app, passport){
         });
     });
 
+	app.get('/level-dwitiya', isLoggedIn, function(req, res) {
+    	res.cookie('level-2 in 1991 128-bit','11a98374ebec8e0c7a54751d2161804d', {path:'/level-dwitiya'});
+    	res.render('level-2');
+
+    });
 
 	app.get('/logout', function(req, res) {
         req.logout();

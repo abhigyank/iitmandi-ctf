@@ -9,6 +9,10 @@ module.exports = function(num){
 			var text = "Welcome to level 1<br>";
 			text += "The key to this level  is at '/level-1'"
 			return text;
+		case 2:
+			var text = "Welcome to level 2<br>";
+			text += "at '/level-dwitiya', Abhigyan always loves it baked good."
+			return text;
 		default:
 			return "Level " + num + " not made yet.";
 	}

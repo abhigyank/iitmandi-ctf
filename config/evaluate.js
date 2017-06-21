@@ -10,6 +10,11 @@ module.exports = function(key, user){
 				return 1;	
 			}
 			else return 0;
+		case 2:
+			if(key === "india"){
+				return 1;	
+			}
+			else return 0;
 		default:
 			return 0;
 	}
