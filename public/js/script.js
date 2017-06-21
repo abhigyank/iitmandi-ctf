@@ -13,7 +13,9 @@ $(document).ready(function() {
   $('textarea').focus();
 });
 $('textarea').blur(function(){
-  $('textarea').focus();
+   setTimeout(function(){
+    $('textarea').focus();    
+  }, 50);
 });
 var temp_command = '';
 function reset(){
@@ -24,6 +26,11 @@ function reset(){
 };
 $('textarea').keyup(function(e) {
   var command = $('textarea').val();
+  if(command.search('<')!=-1 || command.search('>')!=-1){
+    alert('> or < not allowed.');
+    $('textarea').val($('textarea').val().substring(0,$('textarea').prop("selectionStart")-1));
+    return;
+  }
   command = command.replace(/(\r\n|\n|\r)/gm,"");
   if(e.which==38  && login!=1 && submit!=1){
     if(counter>=0){
