@@ -92,6 +92,17 @@ module.exports = function(app, passport){
 
     });
 
+	app.get('/scoreboard', function(req, res) {
+		User.find(function(err, users){
+			if(err) throw(err);
+			else{
+		        res.render('scoreboard', {
+		        	users: users
+		        });
+			}
+		}).sort({'local.level': -1});
+    });
+
 	app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');

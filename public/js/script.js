@@ -95,6 +95,7 @@ $('textarea').keyup(function(e) {
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
        execute - begin<br>\
+       scoreboard - see ranking<br>\
        logout - logout of session\
        </span></div></div><br>');
       reset();
@@ -103,6 +104,12 @@ $('textarea').keyup(function(e) {
       $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
       reset();
       window.location = "signup";
+      return;
+    }
+    else if(command=="scoreboard"){
+      $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+      reset();
+      window.location = "scoreboard";
       return;
     }
     else if(command=="login"){

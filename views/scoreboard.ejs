@@ -1,0 +1,89 @@
+<html>
+<head>
+	<title> Scoreboard - IIT Mandi CTF </title>
+</head>
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
+	body {
+	    background-color: #12110f;
+	}
+
+	html {
+	    width: 100%;
+	    height: 100%;
+	}
+
+
+	/** Score Table Color */
+
+	table.tidy_table td{
+	    border-right: none;
+	    letter-spacing: .5px;
+	    font-family: 'Share Tech Mono',monospace;
+	    color: #51c81b;	
+	}
+
+
+	/** Background of Table */
+
+	table.tidy_table th,
+	table.tidy_table td {
+	    padding: 6px 20px 6px 20px;
+	    text-align: left;
+	}
+
+	table.tidy_table thead {
+	    background: #eee;
+	    color: #000;
+	    border: 1px solid #474747;
+	    text-transform: uppercase;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    letter-spacing: 1px;
+	}
+
+	table.tidy_table {
+	    border-collapse: collapse;
+	    border: 1px solid #474747;
+	    cursor: pointer;
+	    white-space: nowrap;
+	    width: 100%;
+	}
+
+
+	/** Rank Column */
+
+	table.tidy_table th:nth-child(1),
+	table.tidy_table td:nth-child(1) {
+	    width: 10px;
+	    border-right: 1px solid #b8b8b8;
+	}
+
+	table.tidy_table th,
+	table.tidy_table td {
+	    padding: 6px 20px 6px 20px;
+	    border-right: 1px solid #b8b8b8;
+	}
+</style>
+<body>
+    <div id="container">
+        <table class="tidy_table">
+            <thead>
+                <tr>
+                    <th title="Rank" ">Rank</th>
+					<th title="Name "">Name</th>
+                    <th title="Level" ">Score</th>
+                </tr>
+            </thead>
+			<tbody>
+				<% for(var i=0; i<users.length; i++) {%>
+				<tr>
+					<td><%= i+1 %></td>
+					<td><%= users[i].local.name %></td>
+					<td><%= users[i].local.level %></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
