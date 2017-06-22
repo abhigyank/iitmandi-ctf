@@ -92,6 +92,17 @@ module.exports = function(app, passport){
 
     });
 
+	app.get('/lvl3', function(req, res) {
+    	res.render('ans-to-lvl3', {no: 'hhello'});
+    });
+   	app.post('/l3', function(req, res) {
+    	res.send('1');
+   	});
+
+   	app.post('/lvl3', function(req, res) {
+    	res.send('The key to is level 3 is -> abhigyanrocks');
+   	});
+
 	app.get('/scoreboard', function(req, res) {
 		User.find(function(err, users){
 			if(err) throw(err);

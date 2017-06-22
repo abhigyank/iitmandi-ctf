@@ -15,6 +15,11 @@ module.exports = function(key, user){
 				return 1;	
 			}
 			else return 0;
+		case 3:
+			if(key === "abhigyanrocks"){
+				return 1;	
+			}
+			else return 0;
 		default:
 			return 0;
 	}

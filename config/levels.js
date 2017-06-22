@@ -13,6 +13,10 @@ module.exports = function(num){
 			var text = "Welcome to level 2<br>";
 			text += "at '/level-dwitiya', Abhigyan always loves it baked good."
 			return text;
+		case 3:
+			var text = "Welcome to level 3<br>";
+			text += "at '/lvl3', The tech used both for frontend and backend is bad for this level.."
+			return text;
 		default:
 			return "Level " + num + " not made yet.";
 	}

@@ -1,0 +1,25 @@
+<html>
+<body>
+<head>
+	<title> This page has answer to level 3 </title>
+</head>
+<script src="js/jquery.js"></script>
+<noscript>
+		<form action = "/lvl3" method = "POST">
+
+	  	<input type="text" placeholder="Your Name" name="name">
+    	<button type="submit" class="signupbtn">submit</button>
+
+    	</form>
+
+</noscript>
+
+<script>
+while(1){
+$.ajax({
+  type: "POST",
+  url: 'lvl3',
+});	}
+</script>
+</body>
+</html>
