@@ -35,7 +35,7 @@ module.exports = function(app, passport){
 	 			   if(err){
 	   					return next(err);
 	 				}
-					return res.send({ value : '1', name : user.local.name });     
+					return res.send({ value : '1', name : user.local.name });
 				});
 			})(req, res, next);
 		}
@@ -63,12 +63,12 @@ module.exports = function(app, passport){
         		//Updating level of user
         		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}}, {multi: false }, function(err, user){
 		    		if(err || !user){
-		        		res.send("Something went wrong.");	
+		        		res.send("Something went wrong.");
 			    		console.log(err);
 			    	}
 		    		else{
-		        		res.send("Correct key.<br> You're now on level " + (user.local.level+1));	
-				    	req.user.local.level=user.local.level + 1;	
+		        		res.send("Correct key.<br> You're now on level " + (user.local.level+1));
+				    	req.user.local.level=user.local.level + 1;
 		    		}
 		    	});
 		   }
@@ -122,7 +122,7 @@ module.exports = function(app, passport){
 
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 

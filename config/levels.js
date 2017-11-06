@@ -1,6 +1,6 @@
 module.exports = function(num){
 	switch(num){
-		case 0: 
+		case 0:
 			var text = "Welcome to level 0<br>";
 			text += "Here is your key 'thisisthekeytozerolevel' <br>";
 			text += "Always Run 'submit'";
@@ -20,6 +20,10 @@ module.exports = function(num){
 		case 4:
 			var text = "Welcome to level 4<br>";
 			text += "<a href='img/lvl4.jpg' target='_blank'>Click here</a>. 'key-hidden-in-image' = True. Cats can work on images."
+			return text;
+		case 5:
+			var text = "Welcome to level 5<br>";
+			text += "<a href='img/a.out' target='_blank'>Click here</a>. The key is in the downloaded file. Not anywhere else. I even have permission to swear on that. "
 			return text;
 		default:
 			return "Level " + num + " not made yet.";
