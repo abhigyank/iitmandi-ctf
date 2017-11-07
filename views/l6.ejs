@@ -1,0 +1,66 @@
+<html>
+<head>
+  <title>
+    Admin login
+  </title>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<style>
+body{
+  font-family: sans-serif;
+  background: rgba(255,200,255,0.5);
+  margin: 30vh 45vw;
+  font-size: 2em;
+}
+input[type=text], input[type=password] {
+  display: inline-block;
+  color: black;
+  padding: 10px;
+  width: 250px;
+  box-sizing: border-box;
+  background-color: rgba(255,255,0,0.25);
+  border: none;
+  border-radius: 2px;
+  margin: 10px auto;
+  transition:background-color 0.5s ease;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: rgba(0,0,0,0.45);
+  color:white;
+}
+.button {
+  border: none;
+  color: black;
+  font-size: 0.5em;
+  display: inline-block;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin:5px;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  transition: text-shadow 0.3s ease;
+}
+.green {
+  background-color: #4CDF78;
+  border-color: #53A574;
+}
+</style>
+<body>
+  <!-- HINT ::::-->
+
+  <!-- THE BACKEND IDENTIFIES C++ OPERATORS. LIKE "or" -> "||", "and" -> "&&" -->
+
+<div id="form">
+Username: <input id="user" type="text" value="admin"></input>
+<br>Password: <input id="pass" type="password" placeholder="password">
+<button class="button green" onclick="login()">login</button>
+</div>
+<div id="result" style="color:red"></div>
+
+
+<script src = "js/l6.js"></script>
+</body>
+</html>

@@ -25,6 +25,10 @@ module.exports = function(num){
 			var text = "Welcome to level 5<br>";
 			text += "<a href='img/a.out' target='_blank'>Click here</a>. The key is in the downloaded file. Not anywhere else. I even have permission to swear on that. "
 			return text;
+		case 6:
+			var text = "Welcome to level 6<br>";
+			text += "at '/l6' Admin forgot his password, help him retrieve it. True is always true. "
+			return text;
 		default:
 			return "Level " + num + " not made yet.";
 	}

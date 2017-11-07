@@ -30,6 +30,11 @@ module.exports = function(key, user){
 				return 1;
 			}
 			else return 0;
+		case 6:
+				if(key === "securityisamyth"){
+					return 1;
+				}
+				else return 0;
 		default:
 			return 0;
 	}
