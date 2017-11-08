@@ -7,7 +7,8 @@ var userSchema = mongoose.Schema({
 		name: String,
 		roll: String,
 		password: String,
-		level: Number
+		level: Number,
+		time: Date
 	}
 });
 

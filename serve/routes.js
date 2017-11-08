@@ -61,14 +61,16 @@ module.exports = function(app, passport){
         	var response = evaluate(req.body.key, req.user);
         	if(response){
         		//Updating level of user
-        		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}}, {multi: false }, function(err, user){
+						var d = new Date();
+        		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}, $set: {'local.time' : d} }, {multi: false }, function(err, user){
 		    		if(err || !user){
 		        		res.send("Something went wrong.");
 			    		console.log(err);
 			    	}
 		    		else{
 		        		res.send("Correct key.<br> You're now on level " + (user.local.level+1));
-				    	req.user.local.level=user.local.level + 1;
+								req.user.local.level=user.local.level + 1;
+				    		req.user.local.time=new Date();
 		    		}
 		    	});
 		   }
@@ -144,7 +146,8 @@ module.exports = function(app, passport){
 		});
 
 	app.get('/scoreboard', function(req, res) {
-		User.find(function(err, users){
+		// User.find().sort({"local.level":-1, "local.time":1}).exec(function(err, users){
+		User.find({}, null, {sort: {"local.level":-1, "local.time":1}}, function(err, users){
 			if(err) throw(err);
 			else{
 		        res.render('scoreboard', {

@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title> Scoreboard - IIT Mandi CTF </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <style>
 	@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
@@ -20,7 +21,7 @@
 	    border-right: none;
 	    letter-spacing: .5px;
 	    font-family: 'Share Tech Mono',monospace;
-	    color: #51c81b;	
+	    color: #51c81b;
 	}
 
 
@@ -69,9 +70,10 @@
         <table class="tidy_table">
             <thead>
                 <tr>
-                    <th title="Rank" ">Rank</th>
-					<th title="Name "">Name</th>
-                    <th title="Level" ">Score</th>
+                    <th title="Rank">Rank</th>
+										<th title="Name">Name</th>
+										<th title="Level">Score</th>
+                    <th title="Time">Time</th>
                 </tr>
             </thead>
 			<tbody>
@@ -80,7 +82,9 @@
 					<td><%= i+1 %></td>
 					<td><%= users[i].local.name %></td>
 					<td><%= users[i].local.level %></td>
-				</tr>
+					<td id="time"></td>
+					<script> var a = "<%= users[i].local.time %>"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
 				<% } %>
 			</tbody>
 		</table>
