@@ -1,3 +1,3 @@
 module.exports = {
-	'url' : "mongodb://root:root@ds127842.mlab.com:27842/iit-ctf"
+	'url' : "mongodb://root:root@ds251435.mlab.com:51435/capturethestone"
 }

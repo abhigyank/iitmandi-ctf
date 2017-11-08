@@ -21,7 +21,7 @@ module.exports = function(app, passport){
 	app.post('/signup',passport.authenticate('local-signup',{
 		successRedirect: '/',
 		failureRedirect: '/signup',
-		failureMessage: 'Email already exists.'
+		failureMessage: 'Email already exists or you aren\'t using IIT Mandi email.  '
 	}));
 
 	app.post('/login', function(req, res, next) {
@@ -47,8 +47,7 @@ module.exports = function(app, passport){
 	app.post('/execute', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-        	var detail = levels(req.user.local.level);
-        	res.send(detail);
+        	res.send("This will work only after CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -58,23 +57,6 @@ module.exports = function(app, passport){
 	app.post('/evaluate', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-        	var response = evaluate(req.body.key, req.user);
-        	if(response){
-        		//Updating level of user
-						var d = new Date();
-        		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}, $set: {'local.time' : d} }, {multi: false }, function(err, user){
-		    		if(err || !user){
-		        		res.send("Something went wrong.");
-			    		console.log(err);
-			    	}
-		    		else{
-		        		res.send("Correct key.<br> You're now on level " + (user.local.level+1));
-								req.user.local.level=user.local.level + 1;
-				    		req.user.local.time=new Date();
-		    		}
-		    	});
-		   }
-        	else
         		res.send("Incorrect key");
     	}
     	else{

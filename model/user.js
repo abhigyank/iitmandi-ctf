@@ -8,6 +8,8 @@ var userSchema = mongoose.Schema({
 		roll: String,
 		password: String,
 		level: Number,
+		hints: Number,
+		points: Number,
 		time: Date
 	}
 });

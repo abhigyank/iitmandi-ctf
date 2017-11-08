@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 $('textarea').blur(function(){
    setTimeout(function(){
-    $('textarea').focus();    
+    $('textarea').focus();
   }, 50);
 });
 var temp_command = '';
@@ -109,13 +109,12 @@ $('textarea').keyup(function(e) {
     else if(command=="scoreboard"){
       $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
       reset();
-      window.location = "scoreboard";
-      return;
+      window.open('scoreboard','_newtab');
     }
     else if(command=="login"){
       if(!logged){
         $('#root').hide();
-        $('.prompt').append('<span id="email">email:</span>');  
+        $('.prompt').append('<span id="email">email:</span>');
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         reset();
         login = 1;
@@ -139,8 +138,8 @@ $('textarea').keyup(function(e) {
           datatype :'json',
           url:'/execute'
         }).done(function(data){
-          $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');    
-           
+          $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
+
         }).fail(function(data){
           console.log("internal error :" + data);
         });
@@ -155,7 +154,7 @@ $('textarea').keyup(function(e) {
        }
       else{
         $('#root').hide();
-        $('.prompt').append('<span id="email">key:</span>');  
+        $('.prompt').append('<span id="email">key:</span>');
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         submit = 1;
       }
@@ -187,7 +186,7 @@ $('textarea').keyup(function(e) {
     $('#live').html(command);
     $('#live2').html('');
     $('.cursor').html('&nbsp');
-  } 
+  }
   else if(e.which==13  && email==1){
     em = command;
     $('#email').html('password: ');
@@ -211,11 +210,11 @@ $('textarea').keyup(function(e) {
     if(data.value=='1'){
       username = data.name;
       logged = 1;
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Logged in.</span></div></div><br>');    
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Logged in.</span></div></div><br>');
       $('#root').html('root:~/ ' + username + '$ ');
     }
     else{
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Login failed.</span></div></div><br>');    
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Login failed.</span></div></div><br>');
     }
   }).fail(function(data){
     console.log("internal error :" + data);
@@ -234,7 +233,7 @@ $('textarea').keyup(function(e) {
       data:{key: command},
       url:'/evaluate'
     }).done(function(data){
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');    
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
       $('#root').html('root:~/ ' + username + '$ ');
     }).fail(function(data){
       console.log("internal error :" + data);

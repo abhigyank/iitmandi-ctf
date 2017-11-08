@@ -39,7 +39,9 @@ module.exports = function(passport){
             if (user) {
                 return done(null, false);
             } else {
-
+								if(email.split('@')[1] !=="students.iitmandi.ac.in"){
+									return done(null, false);
+								}
                 // if there is no user with that email
                 // create the user
                 var newUser = new User();
@@ -50,6 +52,8 @@ module.exports = function(passport){
                 newUser.local.name = req.body.name;
                 newUser.local.roll = req.body.roll;
 								newUser.local.level = 0;
+								newUser.local.hints = 0;
+								newUser.local.points = 0;
                 newUser.local.time = new Date;
                 // save the user
                 newUser.save(function(err) {
