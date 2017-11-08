@@ -35,7 +35,22 @@ module.exports = function(key, user){
 					return 1;
 				}
 				else return 0;
-		default:
+		case 7:
+				if(key === "first_ctf_at_iit_mandi"){
+					return 1;
+				}
+				else return 0;
+		case 8:
+				if(key === "IIT"){
+					return 1;
+				}
+				else return 0;
+		case 9:
+				if(key === "easyctf{wh3n_y0u_h4ve_p&q_RSA_iz_ez_ce39897a}"){
+					return 1;
+				}
+				else return 0;
+				default:
 			return 0;
 	}
 }
