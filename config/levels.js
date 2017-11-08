@@ -47,6 +47,10 @@ module.exports = function(num){
 			c: 385039965945614490905402335622210470347499810343020510328873859454424507532623252932642491630030372490846191037269295383730831605896115604912885466639330684242\
 			<br> Download it in a file. <a href='img/rsa.txt'>Click here</a>"
 			return text;
+		case 10:
+			var text = "Welcome to level 10<br>";
+			text += "Something to in this android app. <a href='img/android.apk'>Download</a>"
+			return text;
 		default:
 			return "Level " + num + " not made yet.";
 	}

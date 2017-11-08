@@ -49,8 +49,12 @@ module.exports = function(key, user){
 				if(key === "easyctf{wh3n_y0u_h4ve_p&q_RSA_iz_ez_ce39897a}"){
 					return 1;
 				}
+		case 9:
+				if(key === "pareshknowsandroid"){
+					return 1;
+				}
 				else return 0;
-				default:
+		default:
 			return 0;
 	}
 }
