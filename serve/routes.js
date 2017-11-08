@@ -61,14 +61,16 @@ module.exports = function(app, passport){
         	var response = evaluate(req.body.key, req.user);
         	if(response){
         		//Updating level of user
-        		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}}, {multi: false }, function(err, user){
+						var d = new Date();
+        		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}, $set: {'local.time' : d} }, {multi: false }, function(err, user){
 		    		if(err || !user){
 		        		res.send("Something went wrong.");
 			    		console.log(err);
 			    	}
 		    		else{
 		        		res.send("Correct key.<br> You're now on level " + (user.local.level+1));
-				    	req.user.local.level=user.local.level + 1;
+								req.user.local.level=user.local.level + 1;
+				    		req.user.local.time=new Date();
 		    		}
 		    	});
 		   }
@@ -92,7 +94,7 @@ module.exports = function(app, passport){
 
     });
 
-	app.get('/lvl3', function(req, res) {
+	app.get('/lvl3', isLoggedIn, function(req, res) {
     	res.render('ans-to-lvl3', {no: 'hhello'});
     });
    	app.post('/l3', function(req, res) {
@@ -103,8 +105,49 @@ module.exports = function(app, passport){
     	res.send('The key to is level 3 is -> abhigyanrocks');
    	});
 
+		app.get('/l6',function(req, res) {
+				res.render('l6');
+		});
+
+		app.post('/l6', function(req, res) {
+			if(req.body.user == "admin"){
+				str = req.body.password;
+				if(!isNaN(parseFloat(str)) && isFinite(str)){
+					data = [];
+					data.push(0);
+					data.push("Wrong username, password combination.");
+					res.send(data);
+					return;
+				}
+				try{
+					val = eval("'" + str + "'");
+					if(Number(val)){
+						data = []
+						data.push(1);
+						data.push("Logged in.")
+						data.push("The key is : securityisamyth")
+						res.send(data);
+					}
+					else{
+						data = [];
+						data.push(0);
+						data.push("Wrong username, password combination.");
+						res.send(data);
+					}
+				}
+				catch(e){
+					data = [];
+					data.push(0);
+					data.push("Wrong username, password combination.");
+					res.send(data);
+				}
+
+			}
+		});
+
 	app.get('/scoreboard', function(req, res) {
-		User.find(function(err, users){
+		// User.find().sort({"local.level":-1, "local.time":1}).exec(function(err, users){
+		User.find({}, null, {sort: {"local.level":-1, "local.time":1}}, function(err, users){
 			if(err) throw(err);
 			else{
 		        res.render('scoreboard', {
