@@ -10,7 +10,7 @@ module.exports = function(key, user){
 				return 1;
 			}
 			else return 0;
-		case 2:
+		case 5:
 			if(key === "india"){
 				return 1;
 			}
@@ -25,7 +25,7 @@ module.exports = function(key, user){
 				return 1;
 			}
 			else return 0;
-		case 5:
+		case 2:
 			if(key === "programmingisnojoke"){
 				return 1;
 			}

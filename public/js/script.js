@@ -95,6 +95,7 @@ $('textarea').keyup(function(e) {
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
        execute - begin<br>\
+       hints - get a hint for the level (max 3 allowed.)<br>\
        scoreboard - see ranking<br>\
        logout - logout of session\
        </span></div></div><br>');
@@ -137,6 +138,26 @@ $('textarea').keyup(function(e) {
           type:'post',
           datatype :'json',
           url:'/execute'
+        }).done(function(data){
+          $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
+
+        }).fail(function(data){
+          console.log("internal error :" + data);
+        });
+       }
+      reset();
+    }
+    else if(command=="hints"){
+      if(!logged){
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+      else{
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $.ajax({
+          type:'post',
+          datatype :'json',
+          url:'/hints'
         }).done(function(data){
           $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
 
