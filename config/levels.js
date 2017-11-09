@@ -19,11 +19,11 @@ module.exports = function(num){
 			return text;
 		case 4:
 			var text = "Welcome to level 4<br>";
-			text += "<a href='img/lvl4.jpg' target='_blank'>Click here</a>. 'key-hidden-in-image' = True. Cats can work on images."
+			text += "<a href='img/lvl4.jpg' target='_blank'>Click here</a>. 'key-hidden-in-image' = True."
 			return text;
 		case 2:
 			var text = "Welcome to level 2<br>";
-			text += "<a href='img/a.out' target='_blank'>Click here</a>. The key is in the downloaded file. Not anywhere else. I even have permission to swear on that. "
+			text += "<a href='img/a.out' target='_blank'>Click here</a>. The key is in the downloaded file. Not anywhere else."
 			return text;
 		case 6:
 			var text = "Welcome to level 6<br>";
