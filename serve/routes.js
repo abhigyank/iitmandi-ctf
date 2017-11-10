@@ -202,7 +202,7 @@ module.exports = function(app, passport){
 
 	app.get('/scoreboard', function(req, res) {
 		// User.find().sort({"local.level":-1, "local.time":1}).exec(function(err, users){
-		User.find({}, null, {sort: {"local.level":-1, "local.time":1}}, function(err, users){
+		User.find({}, null, {sort: {"local.level":-1, "local.hints":1, "local.time":1}}, function(err, users){
 			if(err) throw(err);
 			else{
 		        res.render('scoreboard', {
