@@ -32,6 +32,9 @@ module.exports = function(app, passport){
 					return next(err);
 				if(!user)
 					return res.send('0');
+				if(!user.local.verified){
+					return res.send({ value : '2'});
+				}
 				req.login(user, function(err){
 	 			   if(err){
 	   					return next(err);
@@ -123,6 +126,24 @@ module.exports = function(app, passport){
         	key: req.user.local.password
         });
     });
+	app.get('/verify',function(req, res) {
+        var key = req.query.key;
+				email = key.split(' ')[0];
+				hash = key.split(' ')[1];
+				User.find({"local.email": email}, function(err, users){
+					if(err)
+						return next(err);
+					if(users[0].local.password.substring(30)==hash){
+						User.update({"local.email": email},{$set : {"local.verified": 1}}, function(err, users){
+							res.send('Email Verified. <a href="/">Click here.</a>');
+					});
+				}
+					else{
+						res.send("Wrong verification!");
+					}
+				});
+
+  });
 
 	app.get('/level-dwitiya', isLoggedIn, function(req, res) {
     	res.cookie('level-2 in 1991 128-bit','11a98374ebec8e0c7a54751d2161804d', {path:'/level-dwitiya'});

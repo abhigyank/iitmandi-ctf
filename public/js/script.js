@@ -234,6 +234,9 @@ $('textarea').keyup(function(e) {
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Logged in.</span></div></div><br>');
       $('#root').html('root:~/ ' + username + '$ ');
     }
+    else if(data.value=='2'){
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Verify your email first. If not recieved, contact Abhigyan Khaund. (9958980594).</span></div></div><br>');
+    }
     else{
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Login failed.</span></div></div><br>');
     }

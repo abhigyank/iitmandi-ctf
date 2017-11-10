@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
 		level: Number,
 		hints: Number,
 		points: Number,
+		verified: Number,
 		time: Date
 	}
 });
