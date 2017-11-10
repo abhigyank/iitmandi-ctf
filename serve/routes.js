@@ -50,9 +50,9 @@ module.exports = function(app, passport){
 	app.post('/execute', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-					// var detail = levels(req.user.local.level);
-        	// res.send(detail);
-        	res.send("This will work only after CTF starts!");
+					var detail = levels(req.user.local.level);
+        	res.send(detail);
+        	// res.send("This will work only after CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -62,29 +62,28 @@ module.exports = function(app, passport){
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
 	        if(req.isAuthenticated()){
-						// var detail = hints(req.user.local.level);
-						// if(req.user.local.hints>=3){
-						// 	res.send("Maximum 3 hints allowed. Sorry.");
-						// 	return;
-						// }
-						// if(req.user.local.points>=1){
-						// 	res.send(detail);
-						// 	return;
-						// }
-						// else{
-						// 	User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.points' : 1, 'local.hints' : 1 }}, {multi: false }, function(err, user){
-					  //   		if(err || !user){
-					  //       		res.send("Something went wrong.");
-						//     			console.log(err);
-						//     	}
-					  //   		else{
-						// 					res.send(detail);
-						// 					req.user.local.points=1;
-						// 					req.user.local.hints+=1;
-					  //   		}
-					  //   	});
-						// }
-	        	res.send("This will work only after CTF starts!");
+						var detail = hints(req.user.local.level);
+						if(req.user.local.hints>=3 && req.user.local.points==0){
+							res.send("Maximum 3 hints allowed. Sorry.");
+							return;
+						}
+						if(req.user.local.points>=1){
+							res.send(detail);
+							return;
+						}
+						else{
+							User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.points' : 1, 'local.hints' : 1 }}, {multi: false }, function(err, user){
+					    		if(err || !user){
+					        		res.send("Something went wrong.");
+						    			console.log(err);
+						    	}
+					    		else{
+											res.send(detail);
+											req.user.local.points=1;
+											req.user.local.hints+=1;
+					    		}
+					    	});
+						}
 	    	}
 	    	else{
 	    		res.send("You aren't logged in.");
@@ -94,26 +93,26 @@ module.exports = function(app, passport){
 	app.post('/evaluate', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-							// var response = evaluate(req.body.key, req.user);
-							// if(response){
-							// 		//Updating level of user
-							// 		var d = new Date();
-							// 		User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}, $set: {'local.time' : d, 'local.points' : 0} }, {multi: false }, function(err, user){
-							// 		if(err || !user){
-							// 				res.send("Something went wrong.");
-							// 			console.log(err);
-							// 		}
-							// 		else{
-							// 				res.send("Correct key.<br> You're now on level " + (user.local.level+1));
-							// 				req.user.local.level=user.local.level + 1;
-							// 				req.user.local.time=new Date();
-							// 				req.user.local.points=0;
-							// 		}
-							// 	});
-							// 	}
-							// else
-							// 	res.send("Incorrect key");
-							res.send("Incorrect key");
+							var response = evaluate((req.body.key).trim(), req.user);
+							if(response){
+									//Updating level of user
+									var d = new Date();
+									User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1}, $set: {'local.time' : d, 'local.points' : 0} }, {multi: false }, function(err, user){
+									if(err || !user){
+											res.send("Something went wrong.");
+										console.log(err);
+									}
+									else{
+											res.send("Correct key.<br> You're now on level " + (user.local.level+1));
+											req.user.local.level=user.local.level + 1;
+											req.user.local.time=new Date();
+											req.user.local.points=0;
+									}
+								});
+								}
+							else
+								res.send("Incorrect key");
+							// res.send("Incorrect key");
 					}
     	else{
     		res.send("You aren't logged in.");
