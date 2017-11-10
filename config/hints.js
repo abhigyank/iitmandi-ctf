@@ -42,7 +42,7 @@ module.exports = function(num){
 			return text;
 		case 6:
 			var text = "";
-			text += "APKs can be treated as zip files."
+			text += "res folder. Opening that particular XML file in it is the key."
 			return text;
 		default:
 			return "Level " + num + " not made yet.";
