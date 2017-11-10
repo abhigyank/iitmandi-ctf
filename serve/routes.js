@@ -11,13 +11,12 @@ module.exports = function(app, passport){
 	});
 	 app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
-        if(!req.isAuthenticated()){
-	        res.render('signup', { errors: req.session.messages || [] });
-    	    req.session.messages = [];
-    	}
-    	else{
+      //   if(!req.isAuthenticated()){
+	    //     res.render('signup', { errors: req.session.messages || [] });
+    	//     req.session.messages = [];
+    	// }
+    	// else{
     		res.redirect('/');
-    	}
     });
 	app.post('/signup',passport.authenticate('local-signup',{
 		successRedirect: '/',

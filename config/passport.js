@@ -54,6 +54,7 @@ module.exports = function(passport){
 								newUser.local.level = 0;
 								newUser.local.hints = 0;
 								newUser.local.points = 0;
+								newUser.local.verified = 0;
                 newUser.local.time = new Date;
                 // save the user
                 newUser.save(function(err) {

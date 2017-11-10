@@ -103,8 +103,9 @@ $('textarea').keyup(function(e) {
     }
     else if(command=="signup"){
       $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Signup is closed now.</span></div></div><br>');
       reset();
-      window.location = "signup";
+      // window.location = "signup";
       return;
     }
     else if(command=="scoreboard"){
