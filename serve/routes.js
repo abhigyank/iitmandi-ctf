@@ -5,9 +5,7 @@ var User = require('../model/user.js');
 
 module.exports = function(app, passport){
 	app.get('/', function(req, res){
-		res.render('index', {
-			user: req.user
-		});
+		res.redirect('scoreboard');
 	});
 	 app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
