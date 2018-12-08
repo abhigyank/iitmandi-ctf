@@ -5,16 +5,27 @@ var User = require('../model/user.js');
 
 module.exports = function(app, passport){
 	app.get('/', function(req, res){
-		res.redirect('scoreboard');
+		/*
+			Comment the next three lines and uncommennt the 4th line to shutdown the contest
+		*/ 
+		res.render('index', {
+			user: req.user
+		});
+		// res.redirect('scoreboard');
 	});
 	 app.get('/signup', function(req, res) {
+    	/*
+			Comment in this part to close signup.
+		*/ 
+	
         // render the page and pass in any flash data if it exists
-      //   if(!req.isAuthenticated()){
-	    //     res.render('signup', { errors: req.session.messages || [] });
-    	//     req.session.messages = [];
-    	// }
-    	// else{
+        if(!req.isAuthenticated()){
+	        res.render('signup', { errors: req.session.messages || [] });
+    	    req.session.messages = [];
+    	}
+    	else{
     		res.redirect('/');
+    	}
     });
 	app.post('/signup',passport.authenticate('local-signup',{
 		successRedirect: '/',
@@ -29,6 +40,10 @@ module.exports = function(app, passport){
 					return next(err);
 				if(!user)
 					return res.send('0');
+				/*
+					Email verification emails have to send manually as of now, so in you comment the next if condition if you don't 
+					want to send verification emails manually
+				*/ 
 				if(!user.local.verified){
 					return res.send({ value : '2'});
 				}
@@ -48,7 +63,8 @@ module.exports = function(app, passport){
 	app.post('/execute', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-					var detail = levels(req.user.local.level);
+        	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
+			var detail = levels(req.user.local.level);
         	res.send(detail);
         	// res.send("This will work only after CTF starts!");
     	}
@@ -110,18 +126,13 @@ module.exports = function(app, passport){
 								}
 							else
 								res.send("Incorrect key");
-							// res.send("Incorrect key");
 					}
     	else{
     		res.send("You aren't logged in.");
     	}
     });
 
-	app.get('/level-1', isLoggedIn, function(req, res) {
-        res.render('level-1', {
-        	key: req.user.local.password
-        });
-    });
+
 	app.get('/verify',function(req, res) {
         var key = req.query.key;
 				email = key.split(' ')[0];
@@ -147,6 +158,18 @@ module.exports = function(app, passport){
 
     });
 
+	app.get('/level-1', isLoggedIn, function(req, res) {
+        res.render('level-1', {
+        	key: req.user.local.password
+        });
+    });
+
+
+    /* 
+    	Sample routes for custom levels in separate pages (from 2017 contest).
+    	The associated ejs files are availbable in views folder. 
+    	Feel free tp remove them. 
+	*/
 	app.get('/lvl3', isLoggedIn, function(req, res) {
     	res.render('ans-to-lvl3', {no: 'hhello'});
     });
@@ -158,45 +181,49 @@ module.exports = function(app, passport){
     	res.send('The key to is level 3 is -> abhigyanrocks');
    	});
 
-		app.get('/l6',function(req, res) {
-				res.render('l6');
-		});
+	app.get('/l6',function(req, res) {
+			res.render('l6');
+	});
 
-		app.post('/l6', function(req, res) {
-			if(req.body.user == "admin"){
-				str = req.body.password;
-				if(!isNaN(parseFloat(str)) && isFinite(str)){
-					data = [];
-					data.push(0);
-					data.push("Wrong username, password combination.");
-					res.send(data);
-					return;
-				}
-				try{
-					val = eval("'" + str + "'");
-					if(Number(val)){
-						data = []
-						data.push(1);
-						data.push("Logged in.")
-						data.push("The key is : securityisamyth")
-						res.send(data);
-					}
-					else{
-						data = [];
-						data.push(0);
-						data.push("Wrong username, password combination.");
-						res.send(data);
-					}
-				}
-				catch(e){
-					data = [];
-					data.push(0);
-					data.push("Wrong username, password combination.");
-					res.send(data);
-				}
-
+	app.post('/l6', function(req, res) {
+		if(req.body.user == "admin"){
+			str = req.body.password;
+			if(!isNaN(parseFloat(str)) && isFinite(str)){
+				data = [];
+				data.push(0);
+				data.push("Wrong username, password combination.");
+				res.send(data);
+				return;
 			}
-		});
+			try{
+				val = eval("'" + str + "'");
+				if(Number(val)){
+					data = []
+					data.push(1);
+					data.push("Logged in.")
+					data.push("The key is : securityisamyth")
+					res.send(data);
+				}
+				else{
+					data = [];
+					data.push(0);
+					data.push("Wrong username, password combination.");
+					res.send(data);
+				}
+			}
+			catch(e){
+				data = [];
+				data.push(0);
+				data.push("Wrong username, password combination.");
+				res.send(data);
+			}
+
+		}
+	});
+
+    /* 
+    	Sample routes for custom levels ends. 
+	*/
 
 	app.get('/scoreboard', function(req, res) {
 		// User.find().sort({"local.level":-1, "local.time":1}).exec(function(err, users){
