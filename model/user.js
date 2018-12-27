@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
 		password: String,
 		level: Number,
 		hints: Number,
-		points: Number,
+		hint_taken: Boolean,
 		verified: Number,
 		time: Date
 	}

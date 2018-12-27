@@ -51,10 +51,10 @@ module.exports = function(passport){
                 newUser.local.password = newUser.generateHash(password);
                 newUser.local.name = req.body.name;
                 newUser.local.roll = req.body.roll;
-								newUser.local.level = 0;
-								newUser.local.hints = 0;
-								newUser.local.points = 0;
-								newUser.local.verified = 0;
+				newUser.local.level = 0;
+				newUser.local.hints = 0;
+				newUser.local.hint_taken = false;
+				newUser.local.verified = 0;
                 newUser.local.time = new Date;
                 // save the user
                 newUser.save(function(err) {
