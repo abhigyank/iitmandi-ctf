@@ -1,5 +1,5 @@
-module.exports = function(key, user){
-	switch(user.local.level){
+module.exports = function(key, level){
+	switch(Number(level)){
 		case 0:
 			if(key === 'thisisthekeytozerolevel'){
 				return 1;

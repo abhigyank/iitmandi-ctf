@@ -8,6 +8,7 @@ var em = "";
 var username = 'guest';
 var logged = 0;
 var submit = 0;
+var level;
 $(document).ready(function() {
   $('#root').html('root:~/ ' + username + '$ ');
   $('textarea').focus();
@@ -94,8 +95,9 @@ $('textarea').keyup(function(e) {
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>List of commands<br> signup - to signup<br> \
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
-       execute - begin<br>\
-       hints - get a hint for the level (max 3 allowed.)<br>\
+       execute &ltlevel>- get problem for level (level begins from 0)<br>\
+       hints &ltlevel> - get a hint for the level<br>\
+       submit &ltlevel> - submit for the level<br>\
        scoreboard - see ranking<br>\
        logout - logout of session\
        </span></div></div><br>');
@@ -103,7 +105,7 @@ $('textarea').keyup(function(e) {
     }
     else if(command=="signup"){
       $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Signup is closed now.</span></div></div><br>');
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Signup is closed now.</span><br><span>Login: guest@students.iitmandi.ac.in , pass: guest</span></div></div><br>');
       reset();
       // window.location = "signup";
       return;
@@ -128,16 +130,21 @@ $('textarea').keyup(function(e) {
         reset();
       }
     }
-    else if(command=="execute"){
+    else if(command.includes("execute")){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+       else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid execute format.</span></div></div><br>');
        }
       else{
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $.ajax({
           type:'post',
           datatype :'json',
+          data:{level: command.split(" ")[1]},
           url:'/execute'
         }).done(function(data){
           $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
@@ -148,16 +155,21 @@ $('textarea').keyup(function(e) {
        }
       reset();
     }
-    else if(command=="hints"){
+    else if(command.includes("hints")){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+       else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid hints format.</span></div></div><br>');
        }
       else{
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $.ajax({
           type:'post',
           datatype :'json',
+          data:{level: command.split(" ")[1]},
           url:'/hints'
         }).done(function(data){
           $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
@@ -169,16 +181,21 @@ $('textarea').keyup(function(e) {
       reset();
     }
 
-    else if(command=="submit" && submit==0){
+    else if(command.includes("submit") && submit==0){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+       else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid submit format.</span></div></div><br>');
        }
       else{
         $('#root').hide();
         $('.prompt').append('<span id="email">key:</span>');
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         submit = 1;
+        level = command.split(" ")[1];
       }
       reset();
     }
@@ -255,7 +272,7 @@ $('textarea').keyup(function(e) {
     $.ajax({
       type:'post',
       datatype :'json',
-      data:{key: command},
+      data:{key: command, level: level},
       url:'/evaluate'
     }).done(function(data){
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');

@@ -5,7 +5,10 @@ var User = require('../model/user.js');
 
 module.exports = function(app, passport){
 	app.get('/', function(req, res){
-		res.redirect('scoreboard');
+		res.render('index', {
+			user: req.user
+		});
+		// res.redirect('scoreboard');
 	});
 	 app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
@@ -23,6 +26,10 @@ module.exports = function(app, passport){
 	}));
 
 	app.post('/login', function(req, res, next) {
+		if(req.body.email != 'guest@students.iitmandi.ac.in'){
+			res.send('0');
+			return;
+		}
 		if (!req.isAuthenticated()){
 			passport.authenticate('local-login', function(err, user, info) {
 				if(err)
@@ -48,7 +55,8 @@ module.exports = function(app, passport){
 	app.post('/execute', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-					var detail = levels(req.user.local.level);
+			// var detail = levels(req.user.local.level);
+			var detail = levels(Number(req.body.level));
         	res.send(detail);
         	// res.send("This will work only after CTF starts!");
     	}
@@ -60,7 +68,9 @@ module.exports = function(app, passport){
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
 	        if(req.isAuthenticated()){
-						var detail = hints(req.user.local.level);
+						var detail = hints(Number(req.body.level));
+						res.send(detail);
+						return;
 						if(req.user.local.hints>=3 && req.user.local.points==0){
 							res.send("Maximum 3 hints allowed. Sorry.");
 							return;
@@ -91,7 +101,12 @@ module.exports = function(app, passport){
 	app.post('/evaluate', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-							var response = evaluate((req.body.key).trim(), req.user);
+							var response = evaluate((req.body.key).trim(), req.body.level);
+							if(response)
+								res.send("Congrats! Correct key.");
+							else 
+								res.send("Try Harder. Incorrect key.");
+							return;
 							if(response){
 									//Updating level of user
 									var d = new Date();
