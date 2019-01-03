@@ -101,7 +101,7 @@ module.exports = function(app, passport){
 	app.post('/evaluate', function(req, res) {
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-							var response = evaluate((req.body.key).trim(), req.body.level);
+							var response = evaluate((req.body.key).trim(), req.body.level, req.user);
 							if(response)
 								res.send("Congrats! Correct key.");
 							else 

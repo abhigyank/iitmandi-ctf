@@ -1,4 +1,4 @@
-module.exports = function(key, level){
+module.exports = function(key, level, user){
 	switch(Number(level)){
 		case 0:
 			if(key === 'thisisthekeytozerolevel'){
