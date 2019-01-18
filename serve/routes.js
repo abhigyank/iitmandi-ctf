@@ -44,9 +44,9 @@ module.exports = function(app, passport){
 					Email verification emails have to send manually as of now, so in you comment the next if condition if you don't 
 					want to send verification emails manually
 				*/ 
-				if(!user.local.verified){
-					return res.send({ value : '2'});
-				}
+				// if(!user.local.verified){
+				// 	return res.send({ value : '2'});
+				// }
 				req.login(user, function(err){
 	 			   if(err){
 	   					return next(err);
@@ -64,9 +64,9 @@ module.exports = function(app, passport){
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			var detail = levels(req.user.local.level);
-        	res.send(detail);
-        	// res.send("This will work only after CTF starts!");
+			// var detail = levels(req.user.local.level);
+        	// res.send(detail);
+        	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -75,6 +75,8 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
+        	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+        	return;
 	        if(req.isAuthenticated()){
 						var detail = hints(req.user.local.level);
 						if(req.user.local.hint_taken == true){
@@ -104,6 +106,8 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
+    	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+    	return;
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
 							var response = evaluate((req.body.key).trim(), req.user);
@@ -135,6 +139,8 @@ module.exports = function(app, passport){
 
 
 	app.get('/verify',function(req, res) {
+    	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+    	return;
         var key = req.query.key;
 				email = key.split(' ')[0];
 				hash = key.split(' ')[1];
@@ -153,17 +159,17 @@ module.exports = function(app, passport){
 
   });
 
-	app.get('/level-dwitiya', isLoggedIn, function(req, res) {
-    	res.cookie('level-2 in 1991 128-bit','11a98374ebec8e0c7a54751d2161804d', {path:'/level-dwitiya'});
-    	res.render('level-2');
+	// app.get('/level-dwitiya', isLoggedIn, function(req, res) {
+ //    	res.cookie('level-2 in 1991 128-bit','11a98374ebec8e0c7a54751d2161804d', {path:'/level-dwitiya'});
+ //    	res.render('level-2');
 
-    });
+ //    });
 
-	app.get('/level-1', isLoggedIn, function(req, res) {
-        res.render('level-1', {
-        	key: req.user.local.password
-        });
-    });
+	// app.get('/level-1', isLoggedIn, function(req, res) {
+ //        res.render('level-1', {
+ //        	key: req.user.local.password
+ //        });
+ //    });
 
 
     /* 
@@ -171,56 +177,56 @@ module.exports = function(app, passport){
     	The associated ejs files are availbable in views folder. 
     	Feel free tp remove them. 
 	*/
-	app.get('/lvl3', isLoggedIn, function(req, res) {
-    	res.render('ans-to-lvl3', {no: 'hhello'});
-    });
-   	app.post('/l3', function(req, res) {
-    	res.send('1');
-   	});
+	// app.get('/lvl3', isLoggedIn, function(req, res) {
+ //    	res.render('ans-to-lvl3', {no: 'hhello'});
+ //    });
+ //   	app.post('/l3', function(req, res) {
+ //    	res.send('1');
+ //   	});
 
-   	app.post('/lvl3', function(req, res) {
-    	res.send('The key to is level 3 is -> abhigyanrocks');
-   	});
+ //   	app.post('/lvl3', function(req, res) {
+ //    	res.send('The key to is level 3 is -> abhigyanrocks');
+ //   	});
 
-	app.get('/l6',function(req, res) {
-			res.render('l6');
-	});
+	// app.get('/l6',function(req, res) {
+	// 		res.render('l6');
+	// });
 
-	app.post('/l6', function(req, res) {
-		if(req.body.user == "admin"){
-			str = req.body.password;
-			if(!isNaN(parseFloat(str)) && isFinite(str)){
-				data = [];
-				data.push(0);
-				data.push("Wrong username, password combination.");
-				res.send(data);
-				return;
-			}
-			try{
-				val = eval("'" + str + "'");
-				if(Number(val)){
-					data = []
-					data.push(1);
-					data.push("Logged in.")
-					data.push("The key is : securityisamyth")
-					res.send(data);
-				}
-				else{
-					data = [];
-					data.push(0);
-					data.push("Wrong username, password combination.");
-					res.send(data);
-				}
-			}
-			catch(e){
-				data = [];
-				data.push(0);
-				data.push("Wrong username, password combination.");
-				res.send(data);
-			}
+	// app.post('/l6', function(req, res) {
+	// 	if(req.body.user == "admin"){
+	// 		str = req.body.password;
+	// 		if(!isNaN(parseFloat(str)) && isFinite(str)){
+	// 			data = [];
+	// 			data.push(0);
+	// 			data.push("Wrong username, password combination.");
+	// 			res.send(data);
+	// 			return;
+	// 		}
+	// 		try{
+	// 			val = eval("'" + str + "'");
+	// 			if(Number(val)){
+	// 				data = []
+	// 				data.push(1);
+	// 				data.push("Logged in.")
+	// 				data.push("The key is : securityisamyth")
+	// 				res.send(data);
+	// 			}
+	// 			else{
+	// 				data = [];
+	// 				data.push(0);
+	// 				data.push("Wrong username, password combination.");
+	// 				res.send(data);
+	// 			}
+	// 		}
+	// 		catch(e){
+	// 			data = [];
+	// 			data.push(0);
+	// 			data.push("Wrong username, password combination.");
+	// 			res.send(data);
+	// 		}
 
-		}
-	});
+	// 	}
+	// });
 
     /* 
     	Sample routes for custom levels ends. 
