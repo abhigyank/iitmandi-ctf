@@ -6,7 +6,7 @@ module.exports = function(num){
 		case 0:
 			/* Sample level 0 */
 			var text = "Welcome to level 0<br>";
-			text += "Here is your flag 'ctciitmandi{ThisIsTheFlagToZeroLevel}'. <br>";
+			text += "Here is your flag 'crackthecode{ThisIsTheFlagToZeroLevel}'. <br>";
 			text += "Always Run 'submit'";
 			return text;
 		case 1:
@@ -18,6 +18,7 @@ module.exports = function(num){
 			var text = "Welcome to level 2<br>";
 			text += "Josh is a not so intelligent kid who’s best friend Samuel is the most intelligent kid in school. And Samuel has made his personal webpage where he writes and publishes his blogs. He’d love to get your reviews and help on some of his blogs. In return, you may get what you’re looking for.";
 			text += "<br>The webpage is at 'dwitiya-charan'.";
+			text += "<br>The flag of this level don't follow the usual format. of crackthecode{text}";
 			return text;
 		case 3:
 			var text = "Welcome to level 3<br>";
@@ -31,8 +32,8 @@ module.exports = function(num){
 		case 5:
 			var text = "Welcome to level 5<br>";
 			text += "This is an easy one. Number of things Allowed <b>vermenigvuldigd met</b> Number of things Disallowed by the robots. The robots loves the square of square of 2.";
-			text += "<br>The flag of this level don't follow the usual format of ctciitmandi{text}";
 			text += "<br>You can register yourself to meet the robot lord at ‘fsociety’";
+			text += "<br>The flag of this level don't follow the usual format. of crackthecode{text}";
 			return text;
 		case 6:
 			var text = "Welcome to level 6<br>";

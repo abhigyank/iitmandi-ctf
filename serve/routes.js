@@ -19,13 +19,14 @@ module.exports = function(app, passport){
 		*/ 
 	
         // render the page and pass in any flash data if it exists
-        if(!req.isAuthenticated()){
-	        res.render('signup', { errors: req.session.messages || [] });
-    	    req.session.messages = [];
-    	}
-    	else{
-    		res.redirect('/');
-    	}
+        // if(!req.isAuthenticated()){
+	    //     res.render('signup', { errors: req.session.messages || [] });
+    	//     req.session.messages = [];
+    	// }
+    	// else{
+    	// 	res.redirect('/');
+		// }
+		res.redirect('/');
     });
 	app.post('/signup',passport.authenticate('local-signup',{
 		successRedirect: '/',
@@ -44,9 +45,9 @@ module.exports = function(app, passport){
 					Email verification emails have to send manually as of now, so in you comment the next if condition if you don't 
 					want to send verification emails manually
 				*/ 
-				// if(!user.local.verified){
-				// 	return res.send({ value : '2'});
-				// }
+				if(!user.local.verified){
+					return res.send({ value : '2'});
+				}
 				req.login(user, function(err){
 	 			   if(err){
 	   					return next(err);
@@ -88,8 +89,8 @@ module.exports = function(app, passport){
 							res.send(detail);
 							return;
 						}
-						if(req.user.local.hints>=3){
-							res.send("Maximum 3 hints allowed. Sorry.");
+						if(req.user.local.hints>=1){
+							res.send("Maximum 1 hints allowed. Sorry.");
 							return;
 						}
 						else{
@@ -191,7 +192,7 @@ module.exports = function(app, passport){
 			string : "You're not a the search engine of my dreams! Don't fool me."
 		}
 		if(req.get('User-Agent').includes("Mozilla/5.0") && req.get('User-Agent').includes("bingbot/2.0")){
-			data.string = "ctciitmandi{Ple@se_u$e_b!ng_too}";
+			data.string = "crackthecode{Ple@se_u$e_b!ng_too}";
 		}
 		res.send(data);
     });
