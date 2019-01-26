@@ -64,9 +64,12 @@ module.exports = function(app, passport){
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			// var detail = levels(req.user.local.level);
-        	// res.send(detail);
-        	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+			if((req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+				var detail = levels(req.user.local.level);
+				res.send(detail);
+				return;
+			}
+			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -75,8 +78,10 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
-        	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
-        	return;
+			if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+				res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+				return;
+			}
 	        if(req.isAuthenticated()){
 						var detail = hints(req.user.local.level);
 						if(req.user.local.hint_taken == true){
@@ -106,8 +111,10 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
-    	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
-    	return;
+		if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+			return;
+		}
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
 							var response = evaluate((req.body.key).trim(), req.user);
@@ -139,8 +146,10 @@ module.exports = function(app, passport){
 
 
 	app.get('/verify',function(req, res) {
-    	res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
-    	return;
+		if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+			return;
+		}
         var key = req.query.key;
 				email = key.split(' ')[0];
 				hash = key.split(' ')[1];
