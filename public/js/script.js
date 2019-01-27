@@ -95,7 +95,7 @@ $('textarea').keyup(function(e) {
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
        execute - begin<br>\
-       hints - get a hint for the level (max 3 allowed.)<br>\
+       hints - get a hint for the level (max 1 allowed.)<br>\
        scoreboard - see ranking<br>\
        logout - logout of session\
        </span></div></div><br>');
