@@ -70,7 +70,7 @@ module.exports = function(app, passport){
 				res.send(detail);
 				return;
 			}
-			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+			res.send("This will work only after CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -80,7 +80,7 @@ module.exports = function(app, passport){
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
 			if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
-				res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+				res.send("This will work only after CTF starts!");
 				return;
 			}
 	        if(req.isAuthenticated()){
@@ -113,7 +113,7 @@ module.exports = function(app, passport){
 
 	app.post('/evaluate', function(req, res) {
 		if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
-			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
+			res.send("This will work only after CTF starts!");
 			return;
 		}
         // render the page and pass in any flash data if it exists
@@ -147,10 +147,6 @@ module.exports = function(app, passport){
 
 
 	app.get('/verify',function(req, res) {
-		if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
-			res.send("This will work only after email validation happens (26 Jan) and CTF starts!");
-			return;
-		}
         var key = req.query.key;
 				email = key.split(' ')[0];
 				hash = key.split(' ')[1];
