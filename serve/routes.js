@@ -8,6 +8,13 @@ module.exports = function(app, passport){
 		/*
 			Comment the next three lines and uncommennt the 4th line to shutdown the contest
 		*/ 
+
+		if(contestEnded()){
+			req.logout();
+			res.redirect('scoreboard');
+			return;
+		}
+
 		res.render('index', {
 			user: req.user
 		});
@@ -19,12 +26,12 @@ module.exports = function(app, passport){
 		*/ 
 	
         // render the page and pass in any flash data if it exists
-        // if(!req.isAuthenticated()){
-	    //     res.render('signup', { errors: req.session.messages || [] });
-    	//     req.session.messages = [];
-    	// }
-    	// else{
-    	// 	res.redirect('/');
+  //       if(!req.isAuthenticated()){
+	 //        res.render('signup', { errors: req.session.messages || [] });
+  //   	    req.session.messages = [];
+  //   	}
+  //   	else{
+  //   		res.redirect('/');
 		// }
 		res.redirect('/');
     });
@@ -65,11 +72,17 @@ module.exports = function(app, passport){
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			if((req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+			if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+			}
+			if(contestStarted()) {
 				var detail = levels(req.user.local.level);
 				res.send(detail);
 				return;
 			}
+
 			res.send("This will work only after CTF starts!");
     	}
     	else{
@@ -79,7 +92,12 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
-			if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+			if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+			}
+			if(!contestStarted()) {
 				res.send("This will work only after CTF starts!");
 				return;
 			}
@@ -112,7 +130,12 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
-		if(!(req.user.local.email == "akshat_test@students.iitmandi.ac.in" || req.user.local.email == "anant_test@students.iitmandi.ac.in")) {
+		if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+		}
+		if(!(contestStarted())) {
 			res.send("This will work only after CTF starts!");
 			return;
 		}
@@ -215,7 +238,48 @@ module.exports = function(app, passport){
     });
 };
 
+function contestStarted() {
+	let d = new Date();
+	if(d.getUTCHours() == 12) {
+		if(d.getUTCMinutes() >= 30) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if( d.getUTCHours() > 12 ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function contestEnded() {
+	let d = new Date();
+	if(d.getUTCHours() == 17) {
+		if(d.getUTCMinutes() >= 30) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if( d.getUTCHours() > 17 ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 function isLoggedIn(req, res, next) {
+
+	if(contestEnded()) {
+    	res.redirect('/');
+    	return;
+	}
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated() && req.user.local.verified) {
