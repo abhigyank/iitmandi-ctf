@@ -30,7 +30,7 @@ module.exports = function(num){
 			return text;
 		case 6:
 			var text = "";
-			text += "PUBLIC eXPONENT."
+			text += "The public exponent is very small. Can we perform an attack?"
 			return text;
 		case 7:
 			var text = "";
