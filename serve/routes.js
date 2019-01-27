@@ -8,13 +8,6 @@ module.exports = function(app, passport){
 		/*
 			Comment the next three lines and uncommennt the 4th line to shutdown the contest
 		*/ 
-
-		if(contestEnded()){
-			req.logout();
-			res.redirect('scoreboard');
-			return;
-		}
-
 		res.render('index', {
 			user: req.user
 		});
@@ -42,6 +35,11 @@ module.exports = function(app, passport){
 	}));
 
 	app.post('/login', function(req, res, next) {
+		if(req.body.email != 'guest@students.iitmandi.ac.in'){
+			res.send('0');
+			return;
+		}
+
 		if (!req.isAuthenticated()){
 			passport.authenticate('local-login', function(err, user, info) {
 				if(err)
@@ -72,18 +70,9 @@ module.exports = function(app, passport){
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			if(contestEnded()) {
-				res.send('Contest Ended, reload page.');
-				return;
-
-			}
-			if(contestStarted()) {
-				var detail = levels(req.user.local.level);
+				var detail = levels(Number(req.body.level));
 				res.send(detail);
 				return;
-			}
-
-			res.send("This will work only after CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -92,17 +81,10 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
-			if(contestEnded()) {
-				res.send('Contest Ended, reload page.');
-				return;
-
-			}
-			if(!contestStarted()) {
-				res.send("This will work only after CTF starts!");
-				return;
-			}
-	        if(req.isAuthenticated()){
-						var detail = hints(req.user.local.level);
+			if(req.isAuthenticated()){
+						var detail = hints(Number(req.body.level));
+						res.send(detail);
+						return;
 						if(req.user.local.hint_taken == true){
 							res.send(detail);
 							return;
@@ -130,18 +112,16 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
-		if(contestEnded()) {
-				res.send('Contest Ended, reload page.');
-				return;
-
-		}
-		if(!(contestStarted())) {
-			res.send("This will work only after CTF starts!");
-			return;
-		}
+		
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-							var response = evaluate((req.body.key).trim(), req.user);
+							var response = evaluate((req.body.key).trim(), req.body.level);
+							console.log(req.body.level, (req.body.key).trim());
+							if(response)
+								res.send("Congrats! Correct key.");
+							else 
+								res.send("Try Harder. Incorrect key.");
+							return;
 							if(response){
 									//Updating level of user
 									var d = new Date();
@@ -275,11 +255,6 @@ function contestEnded() {
 }
 
 function isLoggedIn(req, res, next) {
-
-	if(contestEnded()) {
-    	res.redirect('/');
-    	return;
-	}
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated() && req.user.local.verified) {

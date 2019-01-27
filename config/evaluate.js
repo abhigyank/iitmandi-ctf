@@ -1,8 +1,8 @@
 /*
 Level's flag go in this file
 */
-module.exports = function(key, user){
-	switch(user.local.level){
+module.exports = function(key, level){
+	switch(Number(level)){
 		case 0:
 			if(key === 'crackthecode{ThisIsTheFlagToZeroLevel}'){
 				return 1;
