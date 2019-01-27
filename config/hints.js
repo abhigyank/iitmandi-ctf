@@ -16,7 +16,7 @@ module.exports = function(num){
 			var text = "";
 			text += "Samuel F.B. Morse invented the morse code.";
 			return text;
-		case 3:
+		case 5:
 			var text = "";
 			text += "There is a search engine called Bing and it has a crawler bot!  "
 			return text;
@@ -24,7 +24,7 @@ module.exports = function(num){
 			var text = "";
 			text += "You have to stay/go but remember that, “most famous esoteric language is Brainf*ck”."
 			return text;
-		case 5:
+		case 3:
 			var text = "";
 			text += "Find the text file used to instruct robots how to crawl & index pages on a website. What is square of square of 2 number system?"
 			return text;

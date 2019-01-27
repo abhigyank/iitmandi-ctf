@@ -19,7 +19,7 @@ module.exports = function(key, user){
 				return 1;
 			}
 			else return 0;
-		case 3:
+		case 5:
 			if(key === "crackthecode{Ple@se_u$e_b!ng_too}"){
 				return 1;
 			}
@@ -29,7 +29,7 @@ module.exports = function(key, user){
 				return 1;
 			}
 			else return 0;
-		case 5:
+		case 3:
 			if(key.toLowerCase() === "0x002c14" || key.toLowerCase() === "0x02c14" || key.toLowerCase() === "0x2c14" || key.toLowerCase() === "2c14"){
 				return 1;
 			}

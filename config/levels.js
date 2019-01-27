@@ -20,17 +20,17 @@ module.exports = function(num){
 			text += "<br>The webpage is at 'dwitiya-charan'.";
 			text += "<br>NOTE: The flag is not in standard format of crackthecode{text} for this level";
 			return text;
-		case 3:
-			var text = "Welcome to level 3<br>";
-			text += "At `lev-3`, is a secret website that only one search engine can crawl. Are you a search engine?";
+		case 5:
+			var text = "Welcome to level 5<br>";
+			text += "At `lev-5`, is a secret website that only one search engine can crawl. Are you a search engine?";
 			return text;
 		case 4:
 			var text = "Welcome to level 4<br>";
 			text += "Stay/Go?<br>";
 			text += "Ash gave PG <a href ='/img/eso.jpg'> this image </a> and challenged him to find out what is special in it. PG tried for hours but failed again and again. <br>He requested for a hint, to which Ash replied “You need to be esoteric for this one”."
 			return text;
-		case 5:
-			var text = "Welcome to level 5<br>";
+		case 3:
+			var text = "Welcome to level 3<br>";
 			text += "This is an easy one. Number of things Allowed <b>vermenigvuldigd met</b> Number of things Disallowed by the robots. The robots loves the square of square of 2.";
 			text += "<br>You can register yourself to meet the robot lord at ‘fsociety’";
 			text += "<br>NOTE: The flag is not in standard format of crackthecode{text} for this level";

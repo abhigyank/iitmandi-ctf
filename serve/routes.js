@@ -179,11 +179,11 @@ module.exports = function(app, passport){
 		res.render('dwitiya-charan');
     });
 
-	app.get('/lev-3', isLoggedIn, function(req, res) {
-		res.render('lvl-3');
+	app.get('/lev-5', isLoggedIn, function(req, res) {
+		res.render('lvl-5');
     });
 
-	app.get('/lev3_flag', isLoggedIn, function(req, res) {
+	app.get('/lev5_flag', isLoggedIn, function(req, res) {
 		let data = {
 			string : "You're not a the search engine of my dreams! Don't fool me."
 		}
