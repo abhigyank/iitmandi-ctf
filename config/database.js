@@ -1,3 +1,3 @@
 module.exports = {
-	'url' : "mongodb://root:toor1234@ds161224.mlab.com:61224/crack-the-code-2019"
+	'url' : `mongodb://${process.env.database_username}:${process.env.database_password}@${process.env.database_address}/${process.env.database_name}`
 }
