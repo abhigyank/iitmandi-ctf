@@ -64,9 +64,9 @@ module.exports = function(app, passport){
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			// var detail = levels(req.user.local.level);
-        	// res.send(detail);
-        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
+			var detail = levels(Number(req.body.level));
+        	res.send(detail);
+        	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -75,27 +75,27 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
-        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
-        	return;
+        	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
+        	// return;
 	        if(req.isAuthenticated()){
-						var detail = hints(req.user.local.level);
-						if(req.user.local.hint_taken == true){
+						var detail = hints(Number(req.body.level));
+						if(req.user.local.hints.includes(Number(req.body.level))){
 							res.send(detail);
 							return;
 						}
-						if(req.user.local.hints>=3){
-							res.send("Maximum 3 hints allowed. Sorry.");
-							return;
-						}
+						// if(req.user.local.hints>=3){
+						// 	res.send("Maximum 3 hints allowed. Sorry.");
+						// 	return;
+						// }
 						else{
-							User.findOneAndUpdate({'local.email': req.user.local.email}, {$set: {'local.hint_taken' : true} }, {multi: false }, function(err, user){
+							User.findOneAndUpdate({'local.email': req.user.local.email}, {$push: {'local.hints' : req.body.level} }, {multi: false }, function(err, user){
 					    		if(err || !user){
 					        		res.send("Something went wrong.");
 						    			console.log(err);
 						    	}
 					    		else{
 											res.send(detail);
-											req.user.local.hint_taken=true;
+											req.user.local.hints.push(req.body.level);
 					    		}
 					    	});
 						}
@@ -106,26 +106,33 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
-    	res.send("This will work only after email validation happens (9 March) and CTF starts!");
-    	return;
+    	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
+    	// return;
         // render the page and pass in any flash data if it exists
         if(req.isAuthenticated()){
-							var response = evaluate((req.body.key).trim(), req.user);
+        					if(req.user.local.levels.includes(Number(req.body.level) )) {
+        						res.send("Already accepted.");
+        						return;
+        					}
+							var response = evaluate((req.body.key).trim(), Number(req.body.level));
 							if(response){
 									//Updating level of user
 									var d = new Date();
-									var inc_hint = 0;
-									if(req.user.local.hint_taken) inc_hint = 1;
-									User.findOneAndUpdate({'local.email': req.user.local.email}, {$inc: {'local.level' : 1, 'local.hints' : inc_hint}, $set: {'local.time' : d, 'local.hint_taken' : false} }, {multi: false }, function(err, user){
+									// var inc_hint = 0;
+									// if(req.user.local.hint_taken) inc_hint = 1;
+									var level_score = response;
+									console.log(req.user.local.hints);
+									if(req.user.local.hints.includes(Number(req.body.level))) level_score-= 0.2*response;
+									User.findOneAndUpdate({'local.email': req.user.local.email}, {$push: {'local.levels' : req.body.level}, $set: {'local.time' : d}, $inc: {'local.score': level_score} }, {multi: false }, function(err, user){
 										if(err || !user){
 												res.send("Something went wrong.");
 											console.log(err);
 										}
 										else{
-												res.send("Correct key.<br> You're now on level " + (user.local.level+1));
-												req.user.local.level=user.local.level + 1;
+												res.send("Correct key.<br> You earn a score of " + level_score);
+												req.user.local.score += level_score;
 												req.user.local.time=new Date();
-												req.user.local.hint_taken=false;
+												req.user.local.levels.push(req.body.level);
 										}
 									});
 								}
@@ -234,14 +241,14 @@ module.exports = function(app, passport){
 
 	app.get('/scoreboard', function(req, res) {
 		// User.find().sort({"local.level":-1, "local.time":1}).exec(function(err, users){
-		User.find({}, null, {sort: {"local.level":-1, "local.hints":1, "local.time":1}}, function(err, users){
+		User.find({}, null, {sort: {"local.score":-1, "local.time":1}}, function(err, users){
 			if(err) throw(err);
 			else{
 		        res.render('scoreboard', {
 		        	users: users
 		        });
 			}
-		}).sort({'local.level': -1});
+		}).sort({'local.score': -1});
     });
 
 	app.get('/logout', function(req, res) {

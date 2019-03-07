@@ -1,11 +1,11 @@
 /*
 Level's flag go in this file
 */
-module.exports = function(key, user){
-	switch(user.local.level){
+module.exports = function(key, level){
+	switch(level){
 		case 0:
 			if(key === 'thisisthekeytozerolevel'){
-				return 1;
+				return 100;
 			}
 			else return 0;
 		case 1:
@@ -15,7 +15,7 @@ module.exports = function(key, user){
 			else return 0;
 		case 2:
 			if(key === "level_flag"){
-				return 1;
+				return 100;
 			}
 			else return 0;
 		case 3:

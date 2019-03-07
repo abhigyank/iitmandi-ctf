@@ -7,11 +7,11 @@ var userSchema = mongoose.Schema({
 		name: String,
 		roll: String,
 		password: String,
-		level: Number,
-		hints: Number,
-		hint_taken: Boolean,
+		levels: [Number],
+		hints: [Number],
 		verified: Number,
-		time: Date
+		time: Date,
+		score: Number
 	}
 });
 
