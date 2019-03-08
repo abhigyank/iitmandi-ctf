@@ -8,6 +8,11 @@ module.exports = function(app, passport){
 		/*
 			Comment the next three lines and uncommennt the 4th line to shutdown the contest
 		*/ 
+		if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+		}
 		res.render('index', {
 			user: req.user
 		});
@@ -62,11 +67,20 @@ module.exports = function(app, passport){
 
 	app.post('/execute', function(req, res) {
         // render the page and pass in any flash data if it exists
+        if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+		}
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			var detail = levels(Number(req.body.level));
-        	res.send(detail);
-        	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
+			if(contestStarted()) {
+				var detail = levels(Number(req.body.level));
+	        	res.send(detail);
+	        } 
+	        else {
+	        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
+   			}
     	}
     	else{
     		res.send("You aren't logged in.");
@@ -75,8 +89,15 @@ module.exports = function(app, passport){
 
 		app.post('/hints', function(req, res) {
 	        // render the page and pass in any flash data if it exists
-        	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
-        	// return;
+	        if(!contestStarted()) {
+	        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
+	        	return;
+	        }
+        	if(contestEnded()) {
+				res.send('Contest Ended, reload page.');
+				return;
+
+ 			}
 	        if(req.isAuthenticated()){
 						var detail = hints(Number(req.body.level));
 						if(req.user.local.hints.includes(Number(req.body.level))){
@@ -106,9 +127,16 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', function(req, res) {
-    	// res.send("This will work only after email validation happens (9 March) and CTF starts!");
-    	// return;
+    	if(!contestStarted()) {
+	    	res.send("This will work only after email validation happens (9 March) and CTF starts!");
+	    	return;
+	    }
         // render the page and pass in any flash data if it exists
+        if(contestEnded()) {
+			res.send('Contest Ended, reload page.');
+			return;
+
+ 		}
         if(req.isAuthenticated()){
         					if(req.user.local.levels.includes(Number(req.body.level) )) {
         						res.send("Already accepted.");
@@ -257,7 +285,60 @@ module.exports = function(app, passport){
     });
 };
 
+function contestStarted() {
+	let d = new Date();
+	if(d.getUTCDate() == 10) {
+		if(d.getUTCHours() == 3) {
+			if(d.getUTCMinutes() >= 30) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if( d.getUTCHours() > 3 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+function contestEnded() {
+	let d = new Date();
+	if(d.getUTCDate() == 10) {
+		if(d.getUTCHours() == 18) {
+			if(d.getUTCMinutes() >= 30) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else if( d.getUTCHours() > 18 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else if(d.getUTCDate() > 10) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 function isLoggedIn(req, res, next) {
+	if(contestEnded()) {
+	    	res.redirect('/');
+	    	return;
+	}
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated() && req.user.local.verified) {
