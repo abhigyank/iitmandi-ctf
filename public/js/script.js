@@ -27,6 +27,7 @@ function reset(){
 };
 $('textarea').keyup(function(e) {
   var command = $('textarea').val();
+  var i;
   if(command.search('<')!=-1 || command.search('>')!=-1){
     alert('> or < not allowed.');
     $('textarea').val($('textarea').val().substring(0,$('textarea').prop("selectionStart")-1));
@@ -34,6 +35,15 @@ $('textarea').keyup(function(e) {
   }
   command = command.replace(/(\r\n|\n|\r)/gm,"");
   var ctrl = e.ctrlKey||e.metaKey;
+  if(command.length!=0 && ($('textarea').prop("selectionStart") == command.length)){
+    for(i=array.length-1; i>=0; --i){
+      if(array[i].startsWith(command)){
+          break;
+      }
+    }
+  }
+  else 
+    i = -1;
   if(e.which==38  && login!=1 && submit!=1){
     if(counter>=0){
       if(counter==array.length -1){
@@ -77,12 +87,24 @@ $('textarea').keyup(function(e) {
     var index = $('textarea').prop("selectionStart");
     var prev = command.substring(0, index);
     $('#live').html(prev);
-    if(prev==command)
+    if(prev==command  && (i == -1 || array.length == 0)){
       $('.cursor').html('&nbsp');
-    else{
-      $('.cursor').html(command[index]);
-      $('#live2').html(command.substring(index+1, command.length))
+      $('#live2').html('');
     }
+    else if((prev!=command) && (i == -1 || array.length == 0)){
+      $('.cursor').html(command[index]);
+      $('#live2').html(command.substring(index+1, command.length));
+    }
+    else if((i!=1 || array.length != 0) && (command!=array[i].substring(0, array[i].length)) && (e.which==39)){
+      $('textarea').val(array[i]);
+      command = array[i];
+      $('#live').html(command);
+      $('#live2').html('');
+      $('.cursor').html('&nbsp');
+    }
+    else if(prev == command) {
+      $('.cursor').html('&nbsp');
+    }     
     return;
   }
   else if(e.which==13  && login!=1 && submit!=1){
@@ -300,6 +322,22 @@ $('textarea').keyup(function(e) {
   }
   else if(password!=1){
     $('#live').html('');
-    $('#live').append($('textarea').val().substring(0,$('textarea').prop("selectionStart")));
+    if(i == -1 || array.length == 0){
+        $('#live').append($('textarea').val().substring(0,$('textarea').prop("selectionStart")));
+        if($('textarea').prop("selectionStart") == command.length) {
+          $('#live2').html('');
+          $('.cursor').html('&nbsp');
+        }
+    }
+    else {
+        $('#live').html(command);
+        var index = $('textarea').prop("selectionStart");
+        $('.cursor').html("<font color='yellow'>" + array[i].substring(index, index+1)  + "</font>" );
+        $('#live2').html("<font color='yellow'>" + array[i].substring(index+1, array[i].length)  + "</font>" );
+        if(command==array[i].substring(0, array[i].length))
+        {
+          $('.cursor').html('&nbsp');
+        }
+    }
   }
 });
