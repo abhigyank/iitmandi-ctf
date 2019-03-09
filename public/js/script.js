@@ -33,6 +33,7 @@ $('textarea').keyup(function(e) {
     return;
   }
   command = command.replace(/(\r\n|\n|\r)/gm,"");
+  var ctrl = e.ctrlKey||e.metaKey;
   if(e.which==38  && login!=1 && submit!=1){
     if(counter>=0){
       if(counter==array.length -1){
@@ -217,6 +218,22 @@ $('textarea').keyup(function(e) {
       temp_command = '';
     }
     counter=array.length-1;
+    return;
+  }
+  else if(e.which==67 && ctrl)
+  {
+    if((email==1) || (password==1))
+    {
+      $('#email').remove();
+      $('#root').show();
+      email=0;
+      login=0;
+      password = 0;
+    }
+    else {
+      $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '^C' + '</span></div></div>');
+    }
+    reset();
     return;
   }
   else if((e.which==40 || e.which==38)  && login==1){
