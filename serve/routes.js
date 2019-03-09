@@ -49,9 +49,9 @@ module.exports = function(app, passport){
 					Email verification emails have to send manually as of now, so in you comment the next if condition if you don't 
 					want to send verification emails manually
 				*/ 
-				// if(!user.local.verified){
-				// 	return res.send({ value : '2'});
-				// }
+				if(!user.local.verified){
+					return res.send({ value : '2'});
+				}
 				req.login(user, function(err){
 	 			   if(err){
 	   					return next(err);
@@ -65,7 +65,7 @@ module.exports = function(app, passport){
 		}
 	});
 
-	app.post('/execute', function(req, res) {
+	app.post('/execute', isLoggedIn, function(req, res) {
         // render the page and pass in any flash data if it exists
         if(contestEnded()) {
 				res.send('Contest Ended, reload page.');
@@ -87,7 +87,7 @@ module.exports = function(app, passport){
     	}
     });
 
-		app.post('/hints', function(req, res) {
+		app.post('/hints', isLoggedIn, function(req, res) {
 	        // render the page and pass in any flash data if it exists
 	        if(!contestStarted()) {
 	        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
@@ -126,7 +126,7 @@ module.exports = function(app, passport){
 	    	}
 	    });
 
-	app.post('/evaluate', function(req, res) {
+	app.post('/evaluate', isLoggedIn, function(req, res) {
     	if(!contestStarted()) {
 	    	res.send("This will work only after email validation happens (9 March) and CTF starts!");
 	    	return;
@@ -174,8 +174,6 @@ module.exports = function(app, passport){
 
 
 	app.get('/verify',function(req, res) {
-    	res.send("This will work only after email validation happens (9 March) and CTF starts!");
-    	return;
         var key = req.query.key;
 				email = key.split(' ')[0];
 				hash = key.split(' ')[1];
