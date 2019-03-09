@@ -118,8 +118,8 @@ $('textarea').keyup(function(e) {
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>List of commands<br> signup - to signup<br> \
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
-       execute &ltlevel>- get problem for level (level begins from 0)<br>\
-       hints &ltlevel> - get a hint for the level<br>\
+       execute &ltlevel>- get problem for level (range -1(all) to 11)<br>\
+       hints &ltlevel> - get a hint for the level - 20% score deduction from level<br>\
        submit &ltlevel> - submit for the level<br>\
        scoreboard - see ranking<br>\
        logout - logout of session\

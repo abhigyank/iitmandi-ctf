@@ -35,7 +35,7 @@ module.exports = function(key, level){
 			else return 0;
 		case 6:
 			if(key === "floraislub"){
-				return 240;
+				return 200;
 			}
 			else return 0;
 		case 7:
@@ -45,7 +45,7 @@ module.exports = function(key, level){
 			else return 0;
 		case 8:
 			if(key === "wtf{missed_party_yesterday}"){
-				return 120;
+				return 140;
 			}
 			else return 0;
 		case 9:
@@ -54,8 +54,13 @@ module.exports = function(key, level){
 			}
 			else return 0;
 		case 10:
-			if(key === "wtf{iitmandiinternetsucks}"){
-				return 280;
+			if(key === "wtf{Timothy_Knows_Da_Wae}"){
+				return 100;
+			}
+			else return 0;
+		case 11:
+			if(key === "957"){
+				return 120;
 			}
 			else return 0;
 		default:

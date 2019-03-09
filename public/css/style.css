@@ -2,8 +2,8 @@
 .terminal{
   color: #aaa;
   background-color: #000;
-  font: 16px/1.2 'Share Tech Mono',monospace;
-  line-height: 14px;
+  font: 17px/1.2 'Share Tech Mono',monospace;
+  line-height: 20px;
   box-sizing: border-box;
   padding: 1vw;
 }

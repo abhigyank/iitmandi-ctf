@@ -46,9 +46,13 @@ module.exports = function(num){
 			return text;
 		case 10:
 			var text = "";
-			text += "Can 1s form a pattern? And the title could be an Algorithm!"
+			text += "Need to convert the given string to Roman Numericals! AAAAAAAAAAAAAA"
+			return text;
+		case 11:
+			var text = "";
+			text += "We can see files in previous commits and maybe 1s can form the flag! "
 			return text;
 		default:
-			return "Level " + num + " not made yet.";
+			return "Max Level is 11.";
 	}
 }
