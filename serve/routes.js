@@ -194,17 +194,14 @@ module.exports = function(app, passport){
 
   });
 
-	// app.get('/level-dwitiya', isLoggedIn, function(req, res) {
- //    	res.cookie('level-2 in 1991 128-bit','11a98374ebec8e0c7a54751d2161804d', {path:'/level-dwitiya'});
- //    	res.render('level-2');
+	app.get('/level2', isLoggedIn, function(req, res) {
+    	res.render('level2');
 
- //    });
+    });
 
-	// app.get('/level-1', isLoggedIn, function(req, res) {
- //        res.render('level-1', {
- //        	key: req.user.local.password
- //        });
- //    });
+	app.get('/level1', isLoggedIn, function(req, res) {
+        res.render('level1');
+    });
 
 
     /* 
@@ -212,9 +209,31 @@ module.exports = function(app, passport){
     	The associated ejs files are availbable in views folder. 
     	Feel free tp remove them. 
 	*/
-	// app.get('/lvl3', isLoggedIn, function(req, res) {
- //    	res.render('ans-to-lvl3', {no: 'hhello'});
- //    });
+	app.get('/lvl8', isLoggedIn, function(req, res) {
+    	res.cookie('admin','false');
+    	res.render('lvl8');
+    });
+	app.post('/l6', function(req, res) {
+		if(req.cookies['admin'] == "true") {
+			data = []
+			data.push(1);
+			data.push("Congrats! Flag is wtf{missed_party_yesterday}");
+			res.send(data);
+		}
+		else if(req.body.user != 'admin') {
+			data = []
+			data.push(1);
+			data.push("Logged in! But flag reserved for admin only.");
+			res.send(data);
+		}
+		else {
+			data = []
+			data.push(0);
+			data.push("Sorry wrong admin credentials.");
+			res.send(data);
+		}
+	});
+
  //   	app.post('/l3', function(req, res) {
  //    	res.send('1');
  //   	});

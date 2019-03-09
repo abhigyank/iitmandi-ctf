@@ -6,43 +6,43 @@ module.exports = function(num){
 		case 0:
 			/* Sample hint for level 0 */
 			var text = "";
-			text += "Use the key in '' and run submit command with the key.";
+			text += "Use the key in '' and run 'submit 0' (without '') command and put in the key.";
 			return text;
 		case 1:
 			var text = "";
-			text += "Key is hidden at https://capturethestone.herokuapp.com/level-1"
+			text += "We can see every webpage's code!"
 			return text;
 		case 2:
 			var text = "";
-			text += "Hint for level 2 "
+			text += "How does your program or OS determine what kind of file or image it is? Remember It's not just the extension!"
 			return text;
 		case 3:
 			var text = "";
-			text += "Hint for level 3 "
+			text += ".hint{<br>\tfind-flag:here;<br>}"
 			return text;
 		case 4:
 			var text = "";
-			text += "Hint for level 4"
+			text += "Cryptopals"
 			return text;
 		case 5:
 			var text = "";
-			text += "Hint for level 5 "
+			text += "use a hex editor to edit the binary."
 			return text;
 		case 6:
 			var text = "";
-			text += "Hint for level 6"
+			text += "The IIT Mandi Confession page and a plant can help you."
 			return text;
 		case 7:
 			var text = "";
-			text += "Hint for level 7 "
+			text += "a**p is congruent to a (mod p) "
 			return text;
 		case 8:
 			var text = "";
-			text += "Hint for level 8 "
+			text += "Hmm it doesn't checks anyone's password, except for admins? Can we change something in frontend to fool it? "
 			return text;
 		case 9:
 			var text = "";
-			text += "Hint for level 9"
+			text += "Some files can be within hidden folders!"
 			return text;
 		case 10:
 			var text = "";

@@ -9,7 +9,7 @@ function login(){
   }).done(function(data){
     if(data[0]==1){
       $("#form").remove();
-      $("#result").html(data[1] + "<br>" + data[2]);
+      $("#result").html(data[1]);
     }
     else{
       $("#result").html(data[1]);
