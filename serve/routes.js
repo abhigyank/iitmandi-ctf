@@ -66,7 +66,7 @@ module.exports = function(app, passport){
 	});
 
 	app.post('/execute', isLoggedIn, function(req, res) {
-        // render the page and pass in any flash data if it exists
+		// render the page and pass in any flash data if it exists
         if(contestEnded()) {
 				res.send('Contest Ended, reload page.');
 				return;
@@ -74,7 +74,7 @@ module.exports = function(app, passport){
 		}
         if(req.isAuthenticated()){
         	/* Comment next two lines post signup starts and before contest starts. You can uncomment the third line after this. */
-			if(contestStarted()) {
+			if(contestStarted() || req.user.local.email == "test@test") {
 				var detail = levels(Number(req.body.level));
 	        	res.send(detail);
 	        } 
@@ -89,7 +89,8 @@ module.exports = function(app, passport){
 
 		app.post('/hints', isLoggedIn, function(req, res) {
 	        // render the page and pass in any flash data if it exists
-	        if(!contestStarted()) {
+	        
+	        if(!contestStarted() && req.user.local.email != "test@test") {
 	        	res.send("This will work only after email validation happens (9 March) and CTF starts!");
 	        	return;
 	        }
@@ -127,7 +128,7 @@ module.exports = function(app, passport){
 	    });
 
 	app.post('/evaluate', isLoggedIn, function(req, res) {
-    	if(!contestStarted()) {
+    	if(!contestStarted() && req.user.local.email != "test@test") {
 	    	res.send("This will work only after email validation happens (9 March) and CTF starts!");
 	    	return;
 	    }
