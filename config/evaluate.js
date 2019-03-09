@@ -54,8 +54,8 @@ module.exports = function(key, level){
 			}
 			else return 0;
 		case 10:
-			if(key === "level_flag"){
-				return 1;
+			if(key === "wtf{iitmandiinternetsucks}"){
+				return 280;
 			}
 			else return 0;
 		default:

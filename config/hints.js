@@ -46,7 +46,7 @@ module.exports = function(num){
 			return text;
 		case 10:
 			var text = "";
-			text += "Hint for level 10"
+			text += "Can 1s form a pattern? And the title could be an Algorithm!"
 			return text;
 		default:
 			return "Level " + num + " not made yet.";

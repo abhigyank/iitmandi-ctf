@@ -32,7 +32,7 @@ module.exports = function(num){
 			<a href='img/blame'> File</a>"
 			return text;
 		case 6:
-			var text = "Welcome to level 6 - Points 240<br>";
+			var text = "Welcome to level 6 - Points 230<br>";
 			text += "<b>QR</b><br>Do you like scavenger hunts? Yes? Then we must confess that the journey begins at #549. Also, the flag is not in the standard format"
 			return text;
 		case 7:
@@ -51,8 +51,8 @@ Fermat’s little theorem and a bit of modular mathematics. (not sure)<br><a hre
 Use ssh, user: shell, password: shell"
 			return text;
 		case 10:
-			var text = "Welcome to level 10<br>";
-			text += "Text for Level 10 "
+			var text = "Welcome to level 10 - Points 280<br>";
+			text += "Find the file here and get a key(1): https://bit.ly/2TDdJk3<br>The person at address https://bit.ly/2XLBllM whose title is important gave this:<br> 7B/Tu+jfc0m4JGrmP//ZalW66ptk31btLg6diviE0Sc="
 			return text;
 		default:
 			return "Level " + num + " not made yet.";
