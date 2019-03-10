@@ -8,6 +8,7 @@ module.exports = function(app, passport){
 		/*
 			Comment the next three lines and uncommennt the 4th line to shutdown the contest
 		*/ 
+		res.redirect('scoreboard');
 		if(contestEnded()) {
 				res.send('Contest Ended, reload page.');
 				return;
@@ -328,7 +329,10 @@ function contestStarted() {
 
 function contestEnded() {
 	let d = new Date();
-	if(d.getUTCDate() == 10) {
+	if(d.getUTCMonth() > 3) {
+		return false;
+	}
+	else if(d.getUTCDate() == 10) {
 		if(d.getUTCHours() == 18) {
 			if(d.getUTCMinutes() >= 30) {
 				return true;
