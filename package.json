@@ -1,30 +1,27 @@
 {
-  "name": "command-line-website",
-  "version": "0.0.0",
-  "description": "",
+  "name": "inferno",
+  "version": "1.0.0",
+  "description": "CTF at IIT Mandi",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abhigyank/Command-Line-Website.git"
+    "test": "nodemon app",
+    "start": "node app"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/abhigyank/Command-Line-Website/issues"
-  },
-  "homepage": "https://github.com/abhigyank/Command-Line-Website#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.6",
-    "express": "^4.15.3",
-    "express-session": "^1.15.3",
-    "mongoose": "^4.10.5",
-    "passport": "^0.3.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "googleapis": "^52.1.0",
+    "mongoose": "^5.9.19",
+    "nodemailer": "^6.4.10",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }
 }
