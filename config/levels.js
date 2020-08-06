@@ -1,55 +1,27 @@
 /*
 Level text goes in this file
 */
-module.exports = function(num){
-	switch(num){
-		case 0:
-			/* Sample level 0 */
-			var text = "Welcome to level 0<br>";
-			text += "Here is your key 'thisisthekeytozerolevel' <br>";
-			text += "Always Run 'submit'";
-			return text;
-		case 1:
-			var text = "Welcome to level 1<br>";
-			text += "Text for Level 1 - Include a link like this  <a href='/resources/file.txt'>File Link</a>"
-			return text;
-		case 2:
-			var text = "Welcome to level 2<br>";
-			text += "Text for Level 2 "
-			return text;
-		case 3:
-			var text = "Welcome to level 3<br>";
-			text += "Text for Level 3 "
-			return text;
-		case 4:
-			var text = "Welcome to level 4<br>";
-			text += "Text for Level 4 "
-			return text;
-		case 5:
-			var text = "Welcome to level 5<br>";
-			text += "Text for Level 5  "
-			return text;
-		case 6:
-			var text = "Welcome to level 6<br>";
-			text += "Text for Level 6"
-			return text;
-		case 7:
-			var text = "Welcome to level 7<br>";
-			text += "Text for Level 7 "
-			return text;
-		case 8:
-			var text = "Welcome to level 8<br>";
-			text += "Text for Level 8 "
-			return text;
-		case 9:
-			var text = "Welcome to level 9<br>";
-			text += "Text for Level 9 "
-			return text;
-		case 10:
-			var text = "Welcome to level 10<br>";
-			text += "Text for Level 10 "
-			return text;
-		default:
-			return "Level " + num + " not made yet.";
-	}
+module.exports = function(level){
+    problems = [
+        "Hello reader! Our poem begins on the night of a Maundy Thursday shortly before dawn of Good Friday. Our narrator Dante finds himself lost in a dark forest.He sets out to climb directly up a small mountain, but his way is blocked by three beasts he cannot evade. Later he is rescued by a figure who is none other than the Roman poet Virgil who has been sent by Beatrice to guide him in his journey through the underworld.<br>So here is the first misc challenge: Make sense of whats in <a href='/darkforest'>this</a> file and retrieve the flag.",
+        "After passing through the vestibule of hell and crossing the river Acheron, Dante and Virgil find themselves in the first circle of hell, Limbo, which is the abode of Virgil and many other famouse poets along with great philosophers, scientists, geometers, physicians and army generals who did not accept Christ.<br>The next challenge is given by some people who maybe living in this circle as well sooner or later: Figure out a way to decrypt the pieces of <a href='/limbo'>data</a> that these people have captured(from someone, idk).",
+        "In the second circle of Hell are those overcome by lust. These carnal malefactors are condemned for allowing their appetites to sway their reason. These souls are buffeted back and forth by the terrible winds of a violent storm, without rest. <br> Your next challege is about forensics. Examine this suspicious <a href='/lust'>file</a> for clues to the flag. And beware, don't start buffeting back and forth.",
+        "In the third circle, the gluttonous wallow in a vile, putrid slush produced by a ceaseless, foul, icy rain – ;a great storm of putrefaction' – as punishment for subjecting their reason to a voracious appetite. Cereberus the monstrous three-headed beast dog ravenously guards the area. <br> In this web challenge you have to retrieve the flag from a <a href='https://coronadashboard27699.herokuapp.com'>website</a> which belongs to a country whose people are feared even by the likes of Cerberus. Good luck!",
+        "The fourth circle, that is of greed, is guarded by a figure Dante names as Pluto, the deity of wealth in classical mythology, who menaces them. <br>Here is the next misc challenge. Use `nc iitmandi.co.in 9696` to connect to the service. Figure out a way to retrieve the flag even though the odds are clearly against you. <br><a href='/greed'>Source</a>",
+        "In the swampy, stinking waters of the river Styx – the Fifth Circle – the actively wrathful fight each other viciously on the surface of the slime, while the sullen lie beneath the water, withdrawn, 'into a black sulkiness which can find no joy in God or man or the universe'. Medusa and the furies also live in this circle. In this web challenge. You have the <a href='/anger'>source</a> code for a login app. Try to bypass it on this <a href='https://medusalair.herokuapp.com'>site</a><br>Note: The webapp is not connected to an actual database and just checks whether an input can bypass the login authentication mechanism given in source.",
+        "Still in the Sixth Circle of Hell, Dante and Virgil wander among the fiery tombs of the Heretics. <br>Welcome to your first Reverse Engineering challenge. <br>Reverse this binary to find the key and find a way to use the key to reveal the flag hidden. <br><a href='/heresy'>binary</a>",
+        "In the Second Ring of the Seventh Circle of Hell, Virgil and Dante enter a strange wood filled with black and gnarled trees. Dante hears many cries of suffering but cannot see the souls that utter them. Virgil cryptically advises him to snap a twig off of one of the trees. He does so, and the tree cries out in pain, to Dante’s amazement. Blood begins to trickle down its bark. The souls in this ring—those who were violent against themselves or their possessions (Suicides and Squanderers, respectively)—have been transformed into trees. <br>Welcome to your Second Reverse Engineering challenge. The second half of the flag is hidden somewhere deep (very deep) in the binary. The catch? You have to know the first half of the flag to get the second half. But how will you find it? <br><a href='/violence'>binary</a>",
+        "Barrators: Corrupt politicians, who made money by trafficking in public offices (the political analogue of the simoniacs), are immersed in a lake of boiling pitch, which represents the sticky fingers and dark secrets of their corrupt deals. They are guarded by demons called the Malebranche ('Evil Claws'), who tear them to pieces with claws and grappling hooks if they catch them above the surface of the pitch. <br>Welcome to your First pwn challenge :) <br>The directory of the service contains 360 flag files (i.e flag1 to flag360). The service has access to flag1 to flag359. The flag is present in one of these flag files. You have access to none :) <br>Use `nc iitmandi.co.in 6969` to connect to the service. <br><a href='/fraud'>binary</a>",
+        "At the base of the well, Dante finds himself within a large frozen lake: Cocytus, the Ninth Circle of Hell. Trapped in the ice, each according to his guilt, are punished sinners guilty of treachery against those with whom they had special relationships. The lake of ice is divided into four concentric rings (or 'rounds') of traitors corresponding, in order of seriousness, to betrayal of family ties, betrayal of community ties, betrayal of guests, and betrayal of lords. <br>Welcome to the Ninth Circle of Hell! I'm glad you made it this far. <br>This is your last challenge. Pwn this simple login service to get shell access! <br>Use `nc iitmandi.co.in 31337` to connect to the service. <br><a href='/treachery'>binary</a>"
+    ];
+
+    var text = "";
+
+    if(level<10 && level >=0){
+        text += problems[level];
+    }
+    else {
+        text += "Levels are from 0 to 9."
+    }
+    return text;
 }

@@ -1,0 +1,932 @@
+<html>
+<head>
+	<title> Scoreboard - IIT Mandi CTF </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+	@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
+	body {
+	    background-color: #12110f;
+	}
+
+	html {
+	    width: 100%;
+	    height: 100%;
+	}
+
+
+	/** Score Table Color */
+
+	table.tidy_table td{
+	    border-right: none;
+	    letter-spacing: .5px;
+	    font-family: 'Share Tech Mono',monospace;
+	    color: #51c81b;
+	}
+
+
+	/** Background of Table */
+
+	table.tidy_table th,
+	table.tidy_table td {
+	    padding: 6px 20px 6px 20px;
+	    text-align: left;
+	}
+
+	table.tidy_table thead {
+	    background: #eee;
+	    color: #000;
+	    border: 1px solid #474747;
+	    text-transform: uppercase;
+	    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	    letter-spacing: 1px;
+	}
+
+	table.tidy_table {
+	    border-collapse: collapse;
+	    border: 1px solid #474747;
+	    cursor: pointer;
+	    white-space: nowrap;
+	    width: 100%;
+	}
+
+
+	/** Rank Column */
+
+	table.tidy_table th:nth-child(1),
+	table.tidy_table td:nth-child(1) {
+	    width: 10px;
+	    border-right: 1px solid #b8b8b8;
+	}
+
+	table.tidy_table th,
+	table.tidy_table td {
+	    padding: 6px 20px 6px 20px;
+	    border-right: 1px solid #b8b8b8;
+	}
+</style>
+<body>
+    <div id="container">
+        <table class="tidy_table">
+            <thead>
+                <tr>
+                    <th title="Rank">Rank</th>
+										<th title="Name">Name</th>
+										<th title="Level">Score</th>
+										<th title="Hints">Hints used</th>
+                    <th title="Time">Time</th>
+                </tr>
+            </thead>
+			<tbody>
+				
+				<tr>
+					<td>0</td>
+					<td>Abhigyan Khaund</td>
+					<td>700</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 08:03:48 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>1</td>
+					<td>Shashwat Garg</td>
+					<td>600</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 06:07:02 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>2</td>
+					<td>Pranshu Kharkwal</td>
+					<td>580</td>
+					<td>4</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 06:21:25 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>3</td>
+					<td>ancientfuture</td>
+					<td>400</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 06:19:19 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>4</td>
+					<td>Gajraj Singh Chouhan</td>
+					<td>380</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 11:37:02 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>5</td>
+					<td>Manan Shah</td>
+					<td>380</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 07:35:52 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>6</td>
+					<td>Prajwal Sood</td>
+					<td>340</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 08:23:34 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>7</td>
+					<td>Abhijeet Manhas</td>
+					<td>280</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 07:44:36 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>8</td>
+					<td>Nova</td>
+					<td>200</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 14:11:49 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>9</td>
+					<td>Scarlet</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 08:24:39 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>10</td>
+					<td>Himanshu Baghel</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 08:41:54 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>11</td>
+					<td>Divya Gupta</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 08:44:24 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>12</td>
+					<td>Solai Adithya</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 13:16:44 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>13</td>
+					<td>Living_dead</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 14:26:56 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>14</td>
+					<td>Shivam Sundram</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 15:02:16 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>15</td>
+					<td>sylvia</td>
+					<td>100</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 16:41:49 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>16</td>
+					<td>Rahul Saini</td>
+					<td>80</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 07:41:04 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>17</td>
+					<td>Vineet Ahuja</td>
+					<td>80</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 08:43:10 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>18</td>
+					<td>Md Akram Khan</td>
+					<td>80</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 09:12:57 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>19</td>
+					<td>Deepshikha Rana</td>
+					<td>80</td>
+					<td>5</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 09:28:09 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>20</td>
+					<td>piyush </td>
+					<td>80</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 11:24:53 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>21</td>
+					<td>Deepali </td>
+					<td>80</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 11:26:55 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>22</td>
+					<td>Dhruv Pindawala</td>
+					<td>80</td>
+					<td>4</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 14:22:20 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>23</td>
+					<td>Kratika Gupta</td>
+					<td>80</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 14:41:18 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>24</td>
+					<td>Priyam Seth</td>
+					<td>80</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 15:02:20 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>25</td>
+					<td>Yuvraj Bishnoi</td>
+					<td>80</td>
+					<td>6</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 15:07:29 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>26</td>
+					<td>Shivani</td>
+					<td>80</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 15:54:08 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>27</td>
+					<td>SARANSH JAIN</td>
+					<td>80</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 17:24:16 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>28</td>
+					<td>Anmolpreet Singh</td>
+					<td>80</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 17:59:49 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>29</td>
+					<td>Khubi Kumar</td>
+					<td>80</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 20:00:26 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>30</td>
+					<td>Shubrah Gupta</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Fri Jun 19 2020 17:43:05 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>31</td>
+					<td>Nidhi</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Fri Jun 19 2020 19:01:04 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>32</td>
+					<td>Prati</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Fri Jun 19 2020 22:26:11 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>33</td>
+					<td>Ω≈Ω</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 04:16:02 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>34</td>
+					<td>Divyasheel</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 09:28:33 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>35</td>
+					<td>Anjali Deep</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:00:45 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>36</td>
+					<td>Aaditya</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:07:34 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>37</td>
+					<td>Sagar Kumar</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:13:04 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>38</td>
+					<td>C.Giri Varshith</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:17:12 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>39</td>
+					<td>Priyanshu Shubham</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:19:37 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>40</td>
+					<td>Manvi</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:24:55 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>41</td>
+					<td>Unkn0wn</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:34:29 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>42</td>
+					<td>Nikhil</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:42:06 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>43</td>
+					<td>Mehul</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 15:52:03 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>44</td>
+					<td>Saatvik Chugh</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:01:50 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>45</td>
+					<td>Jayabalaji</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:08:43 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>46</td>
+					<td>Rajat Kaushik</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:17:15 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>47</td>
+					<td>nehal reshu</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:23:38 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>48</td>
+					<td>Shubhanshu agrawal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:25:46 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>49</td>
+					<td>Ayuj Panchal</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:26:33 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>50</td>
+					<td>Kriti Mehta</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:35:38 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>51</td>
+					<td>Nikhil</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:44:20 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>52</td>
+					<td>Khyati</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:56:53 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>53</td>
+					<td>Vivek Moar</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 16:59:06 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>54</td>
+					<td>Piyush Goyal</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:01:23 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>55</td>
+					<td>Deepanshu Kumar Gupta</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:06:01 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>56</td>
+					<td>Prashant Kumar</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:19:07 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>57</td>
+					<td>Ravi Kumar</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:26:53 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>58</td>
+					<td>Preetam Raj</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:31:32 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>59</td>
+					<td>Aryan Goyal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:31:35 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>60</td>
+					<td>Paras</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 17:44:54 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>61</td>
+					<td>Amol Agrawal</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:21:28 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>62</td>
+					<td>Dky</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:34:12 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>63</td>
+					<td>Yash Aggarwal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:37:43 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>64</td>
+					<td>V Madhumita</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:41:41 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>65</td>
+					<td>Sanskar Gupta</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:50:42 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>66</td>
+					<td>Lane</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sat Jun 20 2020 18:57:34 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>67</td>
+					<td>Naveen Kumar Chouhan</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 00:03:51 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>68</td>
+					<td>saksham</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 00:34:34 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>69</td>
+					<td>Rohan Raj Kansal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 02:08:00 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>70</td>
+					<td>Shishir</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 02:39:53 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>71</td>
+					<td>Adarsh Raj</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 03:05:50 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>72</td>
+					<td>Bhumanyu Goyal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 04:48:33 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>73</td>
+					<td>Yash</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 04:52:36 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>74</td>
+					<td>Shubham Saurav</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:00:05 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>75</td>
+					<td>Lily Rawat</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:24:55 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>76</td>
+					<td>Rahul Kumar</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:24:55 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>77</td>
+					<td>Pritish Chugh</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:27:27 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>78</td>
+					<td>Ridhi Ratan</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:38:26 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>79</td>
+					<td>Vaidehi Atpadkar</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:45:18 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>80</td>
+					<td>Smriti Srivastava</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 05:49:52 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>81</td>
+					<td>Swapnil Rustagi</td>
+					<td>0</td>
+					<td>3</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 06:08:42 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>82</td>
+					<td>Shardul Semwal</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 06:12:44 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>83</td>
+					<td>Siddharth </td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 06:16:15 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>84</td>
+					<td>Tarun Singla</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 06:18:46 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>85</td>
+					<td>Samarth Reddy</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 06:25:51 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>86</td>
+					<td>Aayush Sharma</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 07:21:13 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>87</td>
+					<td>Dheeraj</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 07:30:51 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>88</td>
+					<td>Yuvraj Misra</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 07:30:57 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>89</td>
+					<td>jaswanthsai</td>
+					<td>0</td>
+					<td>1</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 08:00:00 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>90</td>
+					<td>Siddharth Gupta</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 09:31:03 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>91</td>
+					<td>Ooops!</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 09:39:11 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>92</td>
+					<td>Saanp</td>
+					<td>0</td>
+					<td>2</td>
+					<td id="time"></td>
+					<script> var a = "Sun Jun 21 2020 12:00:13 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+				<tr>
+					<td>93</td>
+					<td>nan</td>
+					<td>0</td>
+					<td>0</td>
+					<td id="time"></td>
+					<script> var a = "Mon Jun 22 2020 10:20:07 GMT+0000 (Coordinated Universal Time)"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
+					</tr>
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

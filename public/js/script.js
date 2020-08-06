@@ -8,6 +8,7 @@ var em = "";
 var username = 'guest';
 var logged = 0;
 var submit = 0;
+var level;
 $(document).ready(function() {
   $('#root').html('root:~/ ' + username + '$ ');
   $('textarea').focus();
@@ -26,12 +27,23 @@ function reset(){
 };
 $('textarea').keyup(function(e) {
   var command = $('textarea').val();
+  var i;
   if(command.search('<')!=-1 || command.search('>')!=-1){
     alert('> or < not allowed.');
     $('textarea').val($('textarea').val().substring(0,$('textarea').prop("selectionStart")-1));
     return;
   }
   command = command.replace(/(\r\n|\n|\r)/gm,"");
+  var ctrl = e.ctrlKey||e.metaKey;
+  if(command.length!=0 && ($('textarea').prop("selectionStart") == command.length)){
+    for(i=array.length-1; i>=0; --i){
+      if(array[i].startsWith(command)){
+          break;
+      }
+    }
+  }
+  else 
+    i = -1;
   if(e.which==38  && login!=1 && submit!=1){
     if(counter>=0){
       if(counter==array.length -1){
@@ -75,12 +87,24 @@ $('textarea').keyup(function(e) {
     var index = $('textarea').prop("selectionStart");
     var prev = command.substring(0, index);
     $('#live').html(prev);
-    if(prev==command)
+    if(prev==command  && (i == -1 || array.length == 0)){
       $('.cursor').html('&nbsp');
-    else{
-      $('.cursor').html(command[index]);
-      $('#live2').html(command.substring(index+1, command.length))
+      $('#live2').html('');
     }
+    else if((prev!=command) && (i == -1 || array.length == 0)){
+      $('.cursor').html(command[index]);
+      $('#live2').html(command.substring(index+1, command.length));
+    }
+    else if((i!=1 || array.length != 0) && (command!=array[i].substring(0, array[i].length)) && (e.which==39)){
+      $('textarea').val(array[i]);
+      command = array[i];
+      $('#live').html(command);
+      $('#live2').html('');
+      $('.cursor').html('&nbsp');
+    }
+    else if(prev == command) {
+      $('.cursor').html('&nbsp');
+    }     
     return;
   }
   else if(e.which==13  && login!=1 && submit!=1){
@@ -94,18 +118,19 @@ $('textarea').keyup(function(e) {
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>List of commands<br> signup - to signup<br> \
        login - to login into the terminal.<br>\
        clear - to clear screen<br>\
-       execute - begin<br>\
-       hints - get a hint for the level (max 3 allowed.)<br>\
+       execute &ltlevel>- get problem for level (0 to 9)<br>\
+       hints &ltlevel> - get a hint for the level - 20% score deduction from level<br>\
+       submit &ltlevel> - submit for the level<br>\
        scoreboard - see ranking<br>\
        logout - logout of session\
        </span></div></div><br>');
       reset();
     }
     else if(command=="signup"){
-      $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Signup is closed now.</span></div></div><br>');
-      reset();
-      // window.location = "signup";
+      // $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+      // $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Signup is closed now.</span></div></div><br>');
+      // reset();
+      window.open('signup','_newtab');
       return;
     }
     else if(command=="scoreboard"){
@@ -128,16 +153,21 @@ $('textarea').keyup(function(e) {
         reset();
       }
     }
-    else if(command=="execute"){
+    else if(command.includes("execute")){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+      else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid execute format.</span></div></div><br>');
        }
       else{
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $.ajax({
           type:'post',
           datatype :'json',
+          data:{level: command.split(" ")[1]},
           url:'/execute'
         }).done(function(data){
           $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
@@ -148,16 +178,21 @@ $('textarea').keyup(function(e) {
        }
       reset();
     }
-    else if(command=="hints"){
+    else if(command.includes("hints")){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+      else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid hints format.</span></div></div><br>');
        }
       else{
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $.ajax({
           type:'post',
           datatype :'json',
+          data:{level: command.split(" ")[1]},
           url:'/hints'
         }).done(function(data){
           $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
@@ -169,16 +204,21 @@ $('textarea').keyup(function(e) {
       reset();
     }
 
-    else if(command=="submit" && submit==0){
+    else if(command.includes("submit") && submit==0){
       if(!logged){
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>You need to log in.</span></div></div><br>');
+       }
+      else if(command.split(" ").length != 2) {
+        $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
+        $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Invalid submit format.</span></div></div><br>');
        }
       else{
         $('#root').hide();
         $('.prompt').append('<span id="email">key:</span>');
         $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '</span></div></div>');
         submit = 1;
+        level = command.split(" ")[1];
       }
       reset();
     }
@@ -200,6 +240,22 @@ $('textarea').keyup(function(e) {
       temp_command = '';
     }
     counter=array.length-1;
+    return;
+  }
+  else if(e.which==67 && ctrl)
+  {
+    if((email==1) || (password==1))
+    {
+      $('#email').remove();
+      $('#root').show();
+      email=0;
+      login=0;
+      password = 0;
+    }
+    else {
+      $('.terminal-output').append('<div class="command" role="presentation" aria-hidden="true"><div style="width: 100%;"><span class="user">root:~/ ' + username + '$ </span><span>' + command + '^C' + '</span></div></div>');
+    }
+    reset();
     return;
   }
   else if((e.which==40 || e.which==38)  && login==1){
@@ -236,7 +292,7 @@ $('textarea').keyup(function(e) {
       $('#root').html('root:~/ ' + username + '$ ');
     }
     else if(data.value=='2'){
-      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Verify your email first. If not recieved, contact Abhigyan Khaund. (9958980594).</span></div></div><br>');
+      $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Verify your email first. If not recieved, contact admins.</span></div></div><br>');
     }
     else{
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>Login failed.</span></div></div><br>');
@@ -255,7 +311,7 @@ $('textarea').keyup(function(e) {
     $.ajax({
       type:'post',
       datatype :'json',
-      data:{key: command},
+      data:{key: command, level: level},
       url:'/evaluate'
     }).done(function(data){
       $('.terminal-output').append('<div class="result"><div style="width: 100%;"><span>' + data + '</span></div></div><br>');
@@ -266,6 +322,22 @@ $('textarea').keyup(function(e) {
   }
   else if(password!=1){
     $('#live').html('');
-    $('#live').append($('textarea').val().substring(0,$('textarea').prop("selectionStart")));
+    if(i == -1 || array.length == 0){
+        $('#live').append($('textarea').val().substring(0,$('textarea').prop("selectionStart")));
+        if($('textarea').prop("selectionStart") == command.length) {
+          $('#live2').html('');
+          $('.cursor').html('&nbsp');
+        }
+    }
+    else {
+        $('#live').html(command);
+        var index = $('textarea').prop("selectionStart");
+        $('.cursor').html("<font color='yellow'>" + array[i].substring(index, index+1)  + "</font>" );
+        $('#live2').html("<font color='yellow'>" + array[i].substring(index+1, array[i].length)  + "</font>" );
+        if(command==array[i].substring(0, array[i].length))
+        {
+          $('.cursor').html('&nbsp');
+        }
+    }
   }
 });

@@ -82,12 +82,8 @@
 				<tr>
 					<td><%= i %></td>
 					<td><%= users[i].local.name %></td>
-					<td><%= users[i].local.level %></td>
-					<% if(users[i].local.hint_taken ) { %>
-						<td><%= users[i].local.hints %> (+1)</td>
-					<% } else { %>
-						<td><%= users[i].local.hints %></td>
-					<% } %>
+					<td><%= users[i].local.score %></td>
+					<td><%= users[i].local.hints.length %></td>
 					<td id="time"></td>
 					<script> var a = "<%= users[i].local.time %>"; $("#time").html(a.substring(0,24)); $("#time").removeAttr("id"); </script>
 					</tr>

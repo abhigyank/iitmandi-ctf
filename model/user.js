@@ -7,11 +7,11 @@ var userSchema = mongoose.Schema({
 		name: String,
 		roll: String,
 		password: String,
-		level: Number,
-		hints: Number,
-		hint_taken: Boolean,
+		levels: [Number],
+		hints: [Number],
 		verified: Number,
-		time: Date
+		time: Date,
+		score: Number
 	}
 });
 
@@ -22,7 +22,7 @@ userSchema.methods.generateHash = function(password){
 
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+	return bcrypt.compareSync(password, this.local.password);
 };
 
 module.exports = mongoose.model('User', userSchema);
